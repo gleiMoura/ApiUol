@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
 async function errorHandler( error, req: Request, res: Response) {
     console.log(error)

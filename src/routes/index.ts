@@ -1,5 +1,5 @@
 import Router from "express";
-import participantRouter from "./participantRouter";
+import participantRouter from "./participantRouter.js";
 
 const router = Router();
 

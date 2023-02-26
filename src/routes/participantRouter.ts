@@ -1,7 +1,7 @@
 import Router from "express";
-import schemaValidator from "../middlewares/schemaValidator";
-import participantSchema from "../schemas/participantSchema";
-import { createRegister } from "../controllers/participantController";
+import schemaValidator from "../middlewares/schemaValidator.js";
+import participantSchema from "../schemas/participantSchema.js";
+import { createRegister } from "../controllers/participantController.js";
 
 const participantRouter = Router();
 
