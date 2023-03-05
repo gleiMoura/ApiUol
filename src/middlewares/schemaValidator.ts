@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import joi from "joi";
 
-export default function schemaValidator( schema: any) {
+export default function schemaValidator( schema: joi.AnySchema) {
     return (req: Request, res: Response, next: NextFunction ) => {
-        const requests = req.body;
+        const requests: object[] = req.body;
 
         requests.forEach(request => {
             const validation = schema.validate(request, {  abortEarly: false});
