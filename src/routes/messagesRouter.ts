@@ -1,6 +1,10 @@
-import Router from "express";
-import schemaValidator from "../middlewares/schemaValidator";
+import { Router } from "express";
+import schemaValidator from "../middlewares/schemaValidator.js";
+import messageSchema from "../schemas/messageSchema.js";
+import { createMessage } from "../controllers/messageController.js";
 
-const messageRouter = Router();
+const messagesRouter = Router();
 
-messageRouter.post("/message", schemaValidator(), createMessage);
+messagesRouter.post("/messages", schemaValidator(messageSchema), createMessage);
+
+export default messagesRouter;
