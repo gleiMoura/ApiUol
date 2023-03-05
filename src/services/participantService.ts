@@ -1,8 +1,8 @@
-import db from "../index.js";
+import db from "../config/index.js";
 import dayjs from "dayjs";
 
 export async function registerParticipant(name: string) {
-    const existParticipant = await db.collection("participants").findOne({ name });
+    const existParticipant = await db.collection('participants').findOne({name})
 
     if (existParticipant) {
         throw {
