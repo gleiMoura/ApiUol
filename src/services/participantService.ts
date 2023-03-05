@@ -1,5 +1,6 @@
 import db from "../config/index.js";
 import dayjs from "dayjs";
+import { participant } from "../interfaces/index.js";
 
 export async function registerParticipant(name: string) {
     const existParticipant = await db.collection('participants').findOne({name})
@@ -28,4 +29,9 @@ export async function registerParticipant(name: string) {
 
 
     return "Participante cadastrado com sucesso!"
+};
+
+export async function getAllParticipants() :Promise<participant[]> {
+    const participants = await db.collection("participants").find({}).toArray();
+    return participants;
 }
