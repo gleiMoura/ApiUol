@@ -6,5 +6,6 @@ import { createMessage } from "../controllers/messageController.js";
 const messagesRouter = Router();
 
 messagesRouter.post("/messages", schemaValidator(messageSchema), createMessage);
+messagesRouter.get("/messages", sendMessages());
 
 export default messagesRouter;
