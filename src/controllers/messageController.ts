@@ -9,4 +9,13 @@ export async function createMessage(req: Request, res: Response) {
     await gatherDatas(data, user);
 
     res.sendStatus(201);
-}
+};
+
+export async function sendMessages(req: Request, res: Response) {
+    const { limit } = req.query;
+    const { user } = req.headers;
+
+    const messages = await getMessages();
+
+    res.status(201).send(messages);
+} 
