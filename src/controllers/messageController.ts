@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import { messageType } from "../interfaces/index.js";
-import { gatherDatas } from "../services/messageService.js";
+import { gatherDatas, getMessages } from "../services/messageService.js";
 
 export async function createMessage(req: Request, res: Response) {
     const data: messageType = req.body;
@@ -15,7 +15,7 @@ export async function sendMessages(req: Request, res: Response) {
     const { limit } = req.query;
     const { user } = req.headers;
 
-    const messages = await getMessages();
+    const messages = await getMessages(limit, user);
 
     res.status(201).send(messages);
 } 
