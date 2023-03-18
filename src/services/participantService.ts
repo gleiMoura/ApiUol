@@ -1,9 +1,8 @@
-import db from "../config/index.js";
-import dayjs from "dayjs";
 import { participantType } from "../interfaces/index.js";
+import { createEnterMessage, createParticipant, findAllParticipants, findParticpant } from "../repository/participantRepository.js";
 
 export async function registerParticipant(name: string) {
-    const existParticipant = await db.collection('participants').findOne({name})
+    const existParticipant = await findParticpant(name);
 
     if (existParticipant) {
         throw {
@@ -14,23 +13,14 @@ export async function registerParticipant(name: string) {
         }
     }
 
-    await db.collection("participants").insertOne({
-        name,
-        lastStatus: Date.now()
-    });
+    await createParticipant(name);
 
-    await db.collection("messages").insertOne({
-        from: name,
-        to: 'Todos',
-        text: 'entra na sala...',
-        type: 'status',
-        time: dayjs().format('HH:mm:ss')
-    });
+    await createEnterMessage(name);
 
     return "Participante cadastrado com sucesso!"
 };
 
 export async function getAllParticipants() :Promise<participantType[]> {
-    const participants = await db.collection("participants").find({}).toArray();
+    const participants = await findAllParticipants();
     return participants;
 }
