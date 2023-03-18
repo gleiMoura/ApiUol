@@ -1,8 +1,8 @@
 import { participantType } from "../interfaces/index.js";
-import { createEnterMessage, createParticipant, findAllParticipants, findParticpant } from "../repository/participantRepository.js";
+import { createEnterMessage, createParticipant, findAllParticipants, findParticipant } from "../repository/participantRepository.js";
 
 export async function registerParticipant(name: string) {
-    const existParticipant = await findParticpant(name);
+    const existParticipant = await findParticipant(name);
 
     if (existParticipant) {
         throw {

@@ -1,14 +1,14 @@
 
 import db from "../config/index.js";
 import dayjs from "dayjs";
-import { messageType } from "../interfaces/index.js";
-import QueryString from "qs";
-
-type limitType = QueryString.ParsedQs | QueryString.ParsedQs[] | string | string[] | undefined
-type userType = string | string[] | undefined
+import { fromType, messageType, toType } from "../interfaces/index.js";
+import { findParticipant } from "../repository/participantRepository.js";
+import { limitType, userType } from "../interfaces/index.js";
+import { createMessage, findMessages } from "../repository/messagesRepository.js";
+import { completeMessageType } from "../interfaces/index.js";
 
 export async function gatherDatas(data: messageType, user: userType) {
-    const participant = await db.collection("participants").findOne({ name: user });
+    const participant = await findParticipant(user);
 
     if (!participant) {
         throw {
@@ -25,18 +25,18 @@ export async function gatherDatas(data: messageType, user: userType) {
         time: dayjs().format("HH:mm:ss")
     };
 
-    await db.collection("messages").insertOne(completeMessage);
+    await createMessage(completeMessage);
 };
 
 export async function getMessages(limit: limitType, user: userType) {
-    const allMessagesFrom = {
+    const from: fromType = {
         from: user
     };
-    const allMessagesTo = {
+    const to: toType = {
         to: user
     };
-    const messagesFrom = await db.collection("messages").find(allMessagesFrom).toArray();
-    const messagesTo = await db.collection("messages").find(allMessagesTo).toArray();
+    const messagesFrom: completeMessageType[] = await findMessages(from);
+    const messagesTo: completeMessageType[] = await findMessages(to);
 
     const allMessages = [
         ...messagesFrom,
