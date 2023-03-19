@@ -1,6 +1,6 @@
-import db from "../config/index.js";
+import db from "../config/index";
 import dayjs from "dayjs";
-import { userType } from "../interfaces/index.js";
+import { userType } from "../interfaces/index";
 
 export async function findParticipant(name: userType) {
     const participant = await db.collection('participants').findOne({ name });
@@ -47,6 +47,15 @@ export async function findAllParticipants() {
     };
 
 }
+
+const participantRepository = {
+    findParticipant,
+    createParticipant,
+    createEnterMessage,
+    findAllParticipants
+};
+
+export default participantRepository;
 
 
 
