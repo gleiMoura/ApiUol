@@ -45,8 +45,16 @@ export async function findAllParticipants() {
             message: "participants was not found!"
         };
     };
+};
 
-}
+const participantRepository = {
+    findParticipant,
+    createParticipant,
+    createEnterMessage,
+    findAllParticipants
+};
+
+export default participantRepository;
 
 
 

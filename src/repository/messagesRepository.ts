@@ -1,5 +1,5 @@
 import db from "../config/index.js";
-import { completeMessageType, userType } from "../interfaces/index.js";
+import { completeMessageType } from "../interfaces/index.js";
 import { fromType, toType } from "../interfaces/index.js";
 
 export async function createMessage(completeMessage: completeMessageType) {
@@ -24,4 +24,11 @@ export async function findMessages(fromOrTo: fromType | toType) {
             message: "don't find messages"
         };
     };
-}
+};
+
+const messagesRepository = {
+    createMessage,
+    findMessages
+};
+
+export default messagesRepository;
