@@ -23,4 +23,11 @@ export async function registerParticipant(name: string) {
 export async function getAllParticipants() :Promise<participantType[]> {
     const participants = await findAllParticipants();
     return participants;
-}
+};
+
+const participantService = {
+    registerParticipant,
+    getAllParticipants
+};
+
+export default participantService;

@@ -56,4 +56,11 @@ export async function getMessages(limit: limitType, user: userType) {
     }
 
     return allMessages;
-}
+};
+
+const messageService = {
+    gatherDatas,
+    getMessages
+};
+
+export default messageService;
