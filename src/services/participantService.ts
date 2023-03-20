@@ -1,8 +1,8 @@
 import { participantType } from "../interfaces/index.js";
-import { createEnterMessage, createParticipant, findAllParticipants, findParticipant } from "../repository/participantRepository.js";
+import participantRepository from "../repository/participantRepository.js";
 
-export async function registerParticipant(name: string) {
-    const existParticipant = await findParticipant(name);
+async function registerParticipant(name: string) {
+    const existParticipant = await participantRepository.findParticipant(name);
 
     if (existParticipant) {
         throw {
@@ -13,21 +13,19 @@ export async function registerParticipant(name: string) {
         }
     }
 
-    await createParticipant(name);
+    await participantRepository.createParticipant(name);
 
-    await createEnterMessage(name);
+    await participantRepository.createEnterMessage(name);
 
     return "Participante cadastrado com sucesso!"
 };
 
-export async function getAllParticipants() :Promise<participantType[]> {
-    const participants = await findAllParticipants();
+async function getAllParticipants() :Promise<participantType[]> {
+    const participants = await participantRepository.findAllParticipants();
     return participants;
 };
 
-const participantService = {
+export default{
     registerParticipant,
     getAllParticipants
 };
-
-export default participantService;

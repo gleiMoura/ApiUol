@@ -2,13 +2,13 @@
 import db from "../config/index.js";
 import dayjs from "dayjs";
 import { fromType, messageType, toType } from "../interfaces/index.js";
-import { findParticipant } from "../repository/participantRepository.js";
+import participantRepository from "../repository/participantRepository.js";
+import messageRepository from "../repository/messagesRepository.js";
 import { limitType, userType } from "../interfaces/index.js";
-import { createMessage, findMessages } from "../repository/messagesRepository.js";
 import { completeMessageType } from "../interfaces/index.js";
 
-export async function gatherDatas(data: messageType, user: userType) {
-    const participant = await findParticipant(user);
+async function gatherDatas(data: messageType, user: userType) {
+    const participant = await participantRepository.findParticipant(user);
 
     if (!participant) {
         throw {
@@ -25,18 +25,18 @@ export async function gatherDatas(data: messageType, user: userType) {
         time: dayjs().format("HH:mm:ss")
     };
 
-    await createMessage(completeMessage);
+    await messageRepository.createMessage(completeMessage);
 };
 
-export async function getMessages(limit: limitType, user: userType) {
+async function getMessages(limit: limitType, user: userType) {
     const from: fromType = {
         from: user
     };
     const to: toType = {
         to: user
     };
-    const messagesFrom: completeMessageType[] = await findMessages(from);
-    const messagesTo: completeMessageType[] = await findMessages(to);
+    const messagesFrom: completeMessageType[] = await messageRepository.findMessages(from);
+    const messagesTo: completeMessageType[] = await messageRepository.findMessages(to);
 
     const allMessages = [
         ...messagesFrom,
@@ -58,9 +58,7 @@ export async function getMessages(limit: limitType, user: userType) {
     return allMessages;
 };
 
-const messageService = {
+export default {
     gatherDatas,
     getMessages
 };
-
-export default messageService;

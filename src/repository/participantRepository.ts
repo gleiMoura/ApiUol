@@ -1,13 +1,13 @@
-import db from "../config/index.js";
+import db from "../config/index";
 import dayjs from "dayjs";
 import { userType } from "../interfaces/index.js";
 
-export async function findParticipant(name: userType) {
+async function findParticipant(name: userType) {
     const participant = await db.collection('participants').findOne({ name });
     return participant;
 };
 
-export async function createParticipant(name: userType) {
+async function createParticipant(name: userType) {
     await db.collection("participants").insertOne({
         name,
         lastStatus: Date.now()
@@ -15,7 +15,7 @@ export async function createParticipant(name: userType) {
     return "created"
 };
 
-export async function createEnterMessage(name: userType) {
+async function createEnterMessage(name: userType) {
     try {
         await db.collection("messages").insertOne({
             from: name,
@@ -35,7 +35,7 @@ export async function createEnterMessage(name: userType) {
 
 };
 
-export async function findAllParticipants() {
+async function findAllParticipants() {
     try {
         const participants = await db.collection("participants").find({}).toArray();
         return participants;
@@ -47,14 +47,12 @@ export async function findAllParticipants() {
     };
 };
 
-const participantRepository = {
+export default {
     findParticipant,
     createParticipant,
     createEnterMessage,
     findAllParticipants
 };
-
-export default participantRepository;
 
 
 

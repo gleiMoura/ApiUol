@@ -2,7 +2,7 @@ import db from "../config/index.js";
 import { completeMessageType } from "../interfaces/index.js";
 import { fromType, toType } from "../interfaces/index.js";
 
-export async function createMessage(completeMessage: completeMessageType) {
+async function createMessage(completeMessage: completeMessageType) {
     try {
         await db.collection("messages").insertOne(completeMessage);
         return "created!"
@@ -14,7 +14,7 @@ export async function createMessage(completeMessage: completeMessageType) {
     }
 };
 
-export async function findMessages(fromOrTo: fromType | toType) {
+async function findMessages(fromOrTo: fromType | toType) {
     try {
         const messages = await db.collection("messages").find(fromOrTo).toArray();
         return messages;
@@ -26,9 +26,7 @@ export async function findMessages(fromOrTo: fromType | toType) {
     };
 };
 
-const messagesRepository = {
+export default {
     createMessage,
     findMessages
-};
-
-export default messagesRepository;
+}
