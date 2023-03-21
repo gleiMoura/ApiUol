@@ -1,13 +1,12 @@
 {
   "name": "apiuol",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsx",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "test": "jest"
   },
   "keywords": [],
