@@ -1,4 +1,4 @@
-import participantService from "../services/participantService.js";
+import participantService from "../services/participantService";
 import { Request, Response } from "express";
 
 

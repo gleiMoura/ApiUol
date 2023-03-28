@@ -1,5 +1,5 @@
-import { participantType } from "../interfaces/index.js";
-import participantRepository from "../repository/participantRepository.js";
+import { participantType } from "../interfaces/index";
+import participantRepository from "../repository/participantRepository";
 
 async function registerParticipant(name: string) {
     const existParticipant = await participantRepository.findParticipant(name);

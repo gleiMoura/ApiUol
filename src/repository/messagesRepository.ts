@@ -1,6 +1,6 @@
 import db from "../config/index.js";
-import { completeMessageType } from "../interfaces/index.js";
-import { fromType, toType } from "../interfaces/index.js";
+import { completeMessageType } from "../interfaces/index";
+import { fromType, toType } from "../interfaces/index";
 
 async function createMessage(completeMessage: completeMessageType) {
     try {

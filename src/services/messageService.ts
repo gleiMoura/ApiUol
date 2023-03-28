@@ -1,11 +1,10 @@
 
-import db from "../config/index.js";
 import dayjs from "dayjs";
-import { fromType, messageType, toType } from "../interfaces/index.js";
-import participantRepository from "../repository/participantRepository.js";
-import messageRepository from "../repository/messagesRepository.js";
-import { limitType, userType } from "../interfaces/index.js";
-import { completeMessageType } from "../interfaces/index.js";
+import { fromType, messageType, toType } from "../interfaces/index";
+import participantRepository from "../repository/participantRepository";
+import messageRepository from "../repository/messagesRepository";
+import { limitType, userType } from "../interfaces/index";
+import { completeMessageType } from "../interfaces/index";
 
 async function gatherDatas(data: messageType, user: userType) {
     const participant = await participantRepository.findParticipant(user);

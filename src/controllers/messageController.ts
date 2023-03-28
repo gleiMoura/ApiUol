@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import { messageType } from "../interfaces/index.js";
-import messageService from "../services/messageService.js";
+import { messageType } from "../interfaces/index";
+import messageService from "../services/messageService";
 
 export async function createMessage(req: Request, res: Response) {
     const data: messageType = req.body;

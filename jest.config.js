@@ -6,5 +6,4 @@ module.exports = {
     ".+\\.ts$": "ts-jest",
   },
   testMatch: ["<rootDir>/tests/*.(test|spec).ts"],
-  extensionsToTreatAsEsm: ['.ts'],
 };

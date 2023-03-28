@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import participantRepository from "../src/repository/participantRepository.js";
-import participantService from "../src/services/participantService.js";
+import participantRepository from "../src/repository/participantRepository";
+import participantService from "../src/services/participantService";
 
 describe("Unit Services tests", () => {
     it("should create a participant", async () => {
