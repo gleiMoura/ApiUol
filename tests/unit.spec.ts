@@ -36,5 +36,7 @@ describe("Unit Services tests", () => {
         const names = await participantService.getAllParticipants();
 
         expect(names).toBe(participants);
-    })
+    });
+
+    
 })
