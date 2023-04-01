@@ -59,9 +59,9 @@ SF:src/services/participantService.ts
 FN:4,registerParticipant
 FN:23,getAllParticipants
 FNF:2
-FNH:1
+FNH:2
 FNDA:1,registerParticipant
-FNDA:0,getAllParticipants
+FNDA:1,getAllParticipants
 DA:2,1
 DA:5,1
 DA:7,1
@@ -69,11 +69,11 @@ DA:8,0
 DA:16,1
 DA:18,1
 DA:20,1
-DA:24,0
-DA:25,0
+DA:24,1
+DA:25,1
 DA:28,1
 LF:10
-LH:7
+LH:9
 BRDA:7,0,0,0
 BRF:1
 BRH:0

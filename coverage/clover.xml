@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1679973575132" clover="3.2.0">
-  <project timestamp="1679973575132" name="All files">
-    <metrics statements="36" coveredstatements="18" conditionals="3" coveredconditionals="1" methods="7" coveredmethods="2" elements="46" coveredelements="21" complexity="0" loc="36" ncloc="36" packages="3" files="3" classes="3"/>
+<coverage generated="1680393339811" clover="3.2.0">
+  <project timestamp="1680393339811" name="All files">
+    <metrics statements="36" coveredstatements="20" conditionals="3" coveredconditionals="1" methods="7" coveredmethods="3" elements="46" coveredelements="24" complexity="0" loc="36" ncloc="36" packages="3" files="3" classes="3"/>
     <package name="config">
       <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="index.ts" path="/home/gleison/projetos-driven/2023/ApiUol/src/config/index.ts">
@@ -41,9 +41,9 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="10" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="10" coveredstatements="9" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="participantService.ts" path="/home/gleison/projetos-driven/2023/ApiUol/src/services/participantService.ts">
-        <metrics statements="10" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="10" coveredstatements="9" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="1" type="cond" truecount="0" falsecount="1"/>
@@ -51,8 +51,8 @@
         <line num="16" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
       </file>
     </package>
