@@ -104,4 +104,20 @@ describe("Unit Participant Service tests", () => {
 
         expect(messages).toEqual([...allMessagesTo, ...allMessagesFrom])
     }); 
+
+    it("it shoult get a specific number of messages", async () => {
+        const user = factories.fakeParticipant;
+        const allMessagesTo = factories.allFakeMessagesTo(user);
+        const allMessagesFrom = factories.allFakeMessagesFrom(user);
+
+        jest.spyOn(messagesRepository, "findMessages")
+            .mockImplementationOnce(async () => allMessagesTo)
+            .mockImplementationOnce(async () => allMessagesFrom)
+        
+        const limit = factories.generateRandomNumber(1, 100) + ""; //must be string
+        
+        const messages = await messageService.getMessages(limit, user);
+
+        expect(messages.length).toBeLessThanOrEqual(parseInt(limit))
+    })
 });

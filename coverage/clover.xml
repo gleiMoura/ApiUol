@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1680405114499" clover="3.2.0">
-  <project timestamp="1680405114499" name="All files">
-    <metrics statements="86" coveredstatements="57" conditionals="8" coveredconditionals="4" methods="14" coveredmethods="7" elements="108" coveredelements="68" complexity="0" loc="86" ncloc="86" packages="4" files="6" classes="6"/>
+<coverage generated="1680406597267" clover="3.2.0">
+  <project timestamp="1680406597267" name="All files">
+    <metrics statements="87" coveredstatements="64" conditionals="8" coveredconditionals="7" methods="15" coveredmethods="9" elements="110" coveredelements="80" complexity="0" loc="87" ncloc="87" packages="4" files="6" classes="6"/>
     <package name="src.config">
       <metrics statements="11" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="index.ts" path="/home/gleison/projetos-driven/2023/ApiUol/src/config/index.ts">
@@ -54,9 +54,9 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="32" coveredstatements="26" conditionals="6" coveredconditionals="3" methods="5" coveredmethods="4"/>
+      <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
       <file name="messageService.ts" path="/home/gleison/projetos-driven/2023/ApiUol/src/services/messageService.ts">
-        <metrics statements="22" coveredstatements="16" conditionals="5" coveredconditionals="2" methods="3" coveredmethods="2"/>
+        <metrics statements="22" coveredstatements="22" conditionals="5" coveredconditionals="5" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -65,18 +65,18 @@
         <line num="13" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="45" count="1" type="cond" truecount="1" falsecount="2"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="45" count="2" type="cond" truecount="3" falsecount="0"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
       </file>
@@ -95,27 +95,28 @@
       </file>
     </package>
     <package name="tests.factories">
-      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="index.ts" path="/home/gleison/projetos-driven/2023/ApiUol/tests/factories/index.ts">
-        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
         <line num="38" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="50" count="15" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="57" count="18" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
       </file>
     </package>
   </project>
