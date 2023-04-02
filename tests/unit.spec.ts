@@ -29,6 +29,19 @@ describe("Unit Participant Service tests", () => {
         expect(participantRepository.createEnterMessage).toBeCalled();
     });
 
+    it("shouldn't create an exist participant", async () => {
+        const participantName = faker.name.firstName();
+
+        jest.spyOn(participantRepository, "findParticipant")
+            .mockImplementationOnce((): any => participantName);
+
+        try {
+            await participantService.registerParticipant(participantName);
+        } catch (e) {
+            expect(e.response.message).toMatch("Usuário já existe no sistema. Escolha outro nome!");
+        }
+    });
+
     it("should get all participants", async () => {
         const participants: participantType[] = [
             { name: faker.name.firstName() },
@@ -61,7 +74,7 @@ describe("Unit Participant Service tests", () => {
             .mockImplementationOnce(async () => user);
 
         jest.spyOn(messagesRepository, "createMessage")
-            .mockImplementationOnce((): any => {});
+            .mockImplementationOnce((): any => { });
 
 
         await messageService.gatherDatas(message, user)
