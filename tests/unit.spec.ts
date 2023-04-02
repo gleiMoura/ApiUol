@@ -81,4 +81,26 @@ describe("Unit Participant Service tests", () => {
 
         expect(messagesRepository.createMessage).toBeCalled();
     });
+
+    it("it shouldn't create a message because participant doesn't exist", async () => {
+        const message: messageType = {
+            to: faker.name.firstName(),
+            text: faker.address.cityName(),
+            type: "message"
+        };
+
+        const user: string = faker.name.firstName();
+
+        jest.spyOn(participantRepository, "findParticipant")
+            .mockImplementationOnce(async () => { });
+
+        jest.spyOn(messagesRepository, "createMessage")
+            .mockImplementationOnce((): any => { });
+
+        try {
+            await messageService.gatherDatas(message, user)
+        } catch (e) {
+            expect(e.response.message).toMatch("Usuário não cadastrado no banco de dados!");
+        }
+    });
 });
