@@ -1,18 +1,18 @@
-import { faker } from "@faker-js/faker";
-import dayjs from "dayjs";
+import factories from "./factories/index";
 import participantRepository from "../src/repository/participantRepository";
 import messagesRepository from "../src/repository/messagesRepository";
 import participantService from "../src/services/participantService";
 import messageService from "../src/services/messageService";
 import {
     participantType,
-    messageType
+    messageType,
+    completeMessageType
 } from ".././src/interfaces/index"
 
 //Partipant unit tests
 describe("Unit Participant Service tests", () => {
     it("should create a participant", async () => {
-        const participantName = faker.name.firstName();
+        const participantName = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
             .mockImplementationOnce((): any => { });
@@ -30,7 +30,7 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("shouldn't create an exist participant", async () => {
-        const participantName = faker.name.firstName();
+        const participantName = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
             .mockImplementationOnce((): any => participantName);
@@ -43,12 +43,7 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("should get all participants", async () => {
-        const participants: participantType[] = [
-            { name: faker.name.firstName() },
-            { name: faker.name.firstName() },
-            { name: faker.name.firstName() },
-            { name: faker.name.firstName() },
-        ];
+        const participants: participantType[] = factories.fakeParticipants;
 
         jest.spyOn(participantRepository, "findAllParticipants")
             .mockImplementationOnce(async () => participants);
@@ -62,13 +57,9 @@ describe("Unit Participant Service tests", () => {
 //message unit tests
 describe("Unit Participant Service tests", () => {
     it("should create a message", async () => {
-        const message: messageType = {
-            to: faker.name.firstName(),
-            text: faker.address.cityName(),
-            type: "message"
-        };
+        const message: messageType = factories.fakeMessage;
 
-        const user: string = faker.name.firstName();
+        const user: string = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
             .mockImplementationOnce(async () => user);
@@ -83,13 +74,9 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("it shouldn't create a message because participant doesn't exist", async () => {
-        const message: messageType = {
-            to: faker.name.firstName(),
-            text: faker.address.cityName(),
-            type: "message"
-        };
+        const message: messageType = factories.fakeMessage;
 
-        const user: string = faker.name.firstName();
+        const user: string = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
             .mockImplementationOnce(async () => { });
@@ -103,4 +90,18 @@ describe("Unit Participant Service tests", () => {
             expect(e.response.message).toMatch("Usuário não cadastrado no banco de dados!");
         }
     });
+
+    it("it should get all messages from a user", async () => {
+        const user = factories.fakeParticipant;
+        const allMessagesTo = factories.allFakeMessagesTo(user);
+        const allMessagesFrom = factories.allFakeMessagesFrom(user);
+
+        jest.spyOn(messagesRepository, "findMessages")
+            .mockImplementationOnce(async () => allMessagesTo)
+            .mockImplementationOnce(async () => allMessagesFrom)
+        
+        const messages = await messageService.getMessages(undefined, user);
+
+        expect(messages).toEqual([...allMessagesTo, ...allMessagesFrom])
+    }); 
 });

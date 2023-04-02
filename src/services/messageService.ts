@@ -42,7 +42,7 @@ async function getMessages(limit: limitType, user: userType) {
         ...messagesTo
     ];
 
-    if(typeof limit === 'string') {
+    if(limit && typeof limit === 'string') {
         const limitNumber = parseInt(limit);
         let messagesWithLimit: object[] = [];
         allMessages.forEach((message: object, index) => {

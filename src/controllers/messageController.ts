@@ -12,8 +12,8 @@ export async function createMessage(req: Request, res: Response) {
 };
 
 export async function sendMessages(req: Request, res: Response) {
-    const { limit } = req.query;
-    const { user } = req.headers;
+    const { limit } = req?.query;
+    const { user } = req?.headers;
 
     const messages = await messageService.getMessages(limit, user);
 
