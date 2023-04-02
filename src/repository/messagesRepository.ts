@@ -1,4 +1,4 @@
-import db from "../config/index.js";
+import db from "../config/index";
 import { completeMessageType } from "../interfaces/index";
 import { fromType, toType } from "../interfaces/index";
 
@@ -7,22 +7,16 @@ async function createMessage(completeMessage: completeMessageType) {
         await db.collection("messages").insertOne(completeMessage);
         return "created!"
     } catch (e) {
-        return {
-            error: e,
-            message: "don't created message!"
-        }
+        console.log(e);
     }
 };
 
 async function findMessages(fromOrTo: fromType | toType) {
     try {
         const messages = await db.collection("messages").find(fromOrTo).toArray();
-        return messages;
+        return messages
     } catch (e) {
-        return {
-            error: e,
-            message: "don't find messages"
-        };
+        console.log(e);
     };
 };
 
