@@ -1,7 +1,7 @@
-import { participantType } from "../interfaces/index";
+import { participantType, userType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 
-async function registerParticipant(name: string) {
+async function registerParticipant(name: userType) {
     const existParticipant = await participantRepository.findParticipant(name);
 
     if (existParticipant) {
@@ -20,12 +20,25 @@ async function registerParticipant(name: string) {
     return "Participante cadastrado com sucesso!"
 };
 
-async function getAllParticipants() :Promise<participantType[]> {
+async function searchParticipant(name: userType) {
+    const existParticipant = await participantRepository.updateParticipant(name);
+
+    if (!existParticipant) {
+        throw {
+            response: {
+                status: 404
+            }
+        }
+    }
+}
+
+async function getAllParticipants(): Promise<participantType[]> {
     const participants = await participantRepository.findAllParticipants();
     return participants;
 };
 
-export default{
+export default {
     registerParticipant,
-    getAllParticipants
+    getAllParticipants,
+    searchParticipant
 };

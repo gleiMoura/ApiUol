@@ -29,7 +29,7 @@ async function createEnterMessage(name: userType) {
     } catch (e) {
         return {
             error: e,
-            message: "messages was not created!"
+            message: "message was not created!"
         };
     }
 
@@ -42,16 +42,34 @@ async function findAllParticipants() {
     } catch (e) {
         return {
             error: e,
-            message: "participants was not found!"
+            message: "participants were not found!"
         };
     };
 };
+
+async function updateParticipant(name: userType) {
+    const update = {
+        name,
+        lastStatus: Date.now()
+    };
+
+    try {
+        const participant = await db.collection("participant").findOneAndUpdate({ name }, update, { returnOriginal: false });
+        return participant;
+    } catch (e) {
+        return {
+            error: e,
+            message: "participant was not found!"
+        };
+    };
+}
 
 export default {
     findParticipant,
     createParticipant,
     createEnterMessage,
-    findAllParticipants
+    findAllParticipants,
+    updateParticipant
 };
 
 
