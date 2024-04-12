@@ -1,3 +1,4 @@
+import { WithId } from "mongodb";
 import { participantType, userType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 
@@ -32,7 +33,7 @@ async function searchParticipant(name: userType) {
     }
 }
 
-async function getAllParticipants(): Promise<participantType[]> {
+async function getAllParticipants() {
     const participants = await participantRepository.findAllParticipants();
     return participants;
 };

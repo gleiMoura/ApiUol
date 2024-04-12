@@ -4,7 +4,8 @@ import { fromType, toType } from "../interfaces/index";
 
 async function createMessage(completeMessage: completeMessageType) {
     try {
-        await db.collection("messages").insertOne(completeMessage);
+        const database = await db;
+        await database.collection("messages").insertOne(completeMessage);
         return "created!"
     } catch (e) {
         console.log(e);
@@ -13,7 +14,8 @@ async function createMessage(completeMessage: completeMessageType) {
 
 async function findMessages(fromOrTo: fromType | toType) {
     try {
-        const messages = await db.collection("messages").find(fromOrTo).toArray();
+        const database = await db;
+        const messages = await database.collection("messages").find(fromOrTo).toArray();
         return messages
     } catch (e) {
         console.log(e);

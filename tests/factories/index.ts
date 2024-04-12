@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
-import { participantType, messageType, completeMessageType, fromType, toType } from "../../src/interfaces/index";
+import { messageType, completeMessageType } from "../../src/interfaces/index";
 import dayjs from "dayjs";
 
 const fakeParticipant = faker.name.firstName();
 
-const fakeParticipants: participantType[] = [
+const fakeParticipants = [
     { name: faker.name.firstName() },
     { name: faker.name.firstName() },
     { name: faker.name.firstName() },

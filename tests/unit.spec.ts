@@ -4,9 +4,7 @@ import messagesRepository from "../src/repository/messagesRepository";
 import participantService from "../src/services/participantService";
 import messageService from "../src/services/messageService";
 import {
-    participantType,
     messageType,
-    completeMessageType
 } from ".././src/interfaces/index"
 
 //Partipant unit tests
@@ -43,7 +41,7 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("should get all participants", async () => {
-        const participants: participantType[] = factories.fakeParticipants;
+        const participants = factories.fakeParticipants;
 
         jest.spyOn(participantRepository, "findAllParticipants")
             .mockImplementationOnce(async () => participants);
@@ -99,11 +97,11 @@ describe("Unit Participant Service tests", () => {
         jest.spyOn(messagesRepository, "findMessages")
             .mockImplementationOnce(async () => allMessagesTo)
             .mockImplementationOnce(async () => allMessagesFrom)
-        
+
         const messages = await messageService.getMessages(undefined, user);
 
         expect(messages).toEqual([...allMessagesTo, ...allMessagesFrom])
-    }); 
+    });
 
     it("it shoult get a specific number of messages", async () => {
         const user = factories.fakeParticipant;
@@ -113,9 +111,9 @@ describe("Unit Participant Service tests", () => {
         jest.spyOn(messagesRepository, "findMessages")
             .mockImplementationOnce(async () => allMessagesTo)
             .mockImplementationOnce(async () => allMessagesFrom)
-        
+
         const limit = factories.generateRandomNumber(1, 100) + ""; //must be string
-        
+
         const messages = await messageService.getMessages(limit, user);
 
         expect(messages.length).toBeLessThanOrEqual(parseInt(limit))

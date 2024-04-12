@@ -1,6 +1,12 @@
 import QueryString from "qs";
+import { WithId } from "mongodb";
 export interface participantType {
-    name: string
+    name: string |
+    WithId<Document>[] |
+    {
+        error: any;
+        message: string;
+    }
 };
 
 export interface messageType {
@@ -18,7 +24,7 @@ export interface completeMessageType {
 };
 
 export interface fromType {
-    from: userType 
+    from: userType
 };
 
 export interface toType {

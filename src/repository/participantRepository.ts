@@ -3,12 +3,15 @@ import dayjs from "dayjs";
 import { userType } from "../interfaces/index";
 
 async function findParticipant(name: userType) {
-    const participant = await db.collection('participants').findOne({ name });
+    const database = await db;
+    const participant = await database.collection('participants').findOne({ name });
+    console.log(participant)
     return participant;
 };
 
 async function createParticipant(name: userType) {
-    await db.collection("participants").insertOne({
+    const database = await db;
+    await database.collection("participants").insertOne({
         name,
         lastStatus: Date.now()
     });
@@ -17,7 +20,8 @@ async function createParticipant(name: userType) {
 
 async function createEnterMessage(name: userType) {
     try {
-        await db.collection("messages").insertOne({
+        const database = await db;
+        await database.collection("messages").insertOne({
             from: name,
             to: 'Todos',
             text: 'entra na sala...',
@@ -37,7 +41,8 @@ async function createEnterMessage(name: userType) {
 
 async function findAllParticipants() {
     try {
-        const participants = await db.collection("participants").find({}).toArray();
+        const database = await db;
+        const participants = await database.collection("participants").find({}).toArray();
         return participants;
     } catch (e) {
         return {
@@ -54,7 +59,8 @@ async function updateParticipant(name: userType) {
     };
 
     try {
-        const participant = await db.collection("participant").findOneAndUpdate({ name }, update, { returnOriginal: false });
+        const database = await db;
+        const participant = await database.collection("participant").findOneAndUpdate({ name }, update);
         return participant;
     } catch (e) {
         return {
