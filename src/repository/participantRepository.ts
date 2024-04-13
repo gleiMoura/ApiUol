@@ -72,9 +72,9 @@ async function updateParticipant(name: userType) {
 async function deleteParticipant() {
     try {
         const database = await db;
-        const SecondsAgo = Date.now() - (10 * 1000);
+        const secondsAgo = Date.now() - (20 * 1000);
 
-        await database.collection("participants").deleteMany({ lastStatus: SecondsAgo })
+        await database.collection("participants").deleteMany({ lastStatus: { $lt: secondsAgo } }) //lt means less than
     } catch (e) {
         return {
             error: e,
