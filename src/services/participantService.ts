@@ -1,5 +1,4 @@
-import { WithId } from "mongodb";
-import { participantType, userType } from "../interfaces/index";
+import { userType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 
 async function registerParticipant(name: userType) {
@@ -38,8 +37,15 @@ async function getAllParticipants() {
     return participants;
 };
 
+function removeParticipant() {
+    setInterval(async () => {
+        await participantRepository.deleteParticipant();
+    }, 15000)
+}
+
 export default {
     registerParticipant,
     getAllParticipants,
-    searchParticipant
+    searchParticipant,
+    removeParticipant
 };
