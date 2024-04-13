@@ -70,12 +70,25 @@ async function updateParticipant(name: userType) {
     };
 }
 
+async function deleteParticipant(name: userType) {
+    try {
+        const database = await db;
+        await database.collection("participants").deleteOne({ name })
+    } catch (e) {
+        return {
+            error: e,
+            message: "participant was not found!"
+        };
+    }
+}
+
 export default {
     findParticipant,
     createParticipant,
     createEnterMessage,
     findAllParticipants,
-    updateParticipant
+    updateParticipant,
+    deleteParticipant
 };
 
 
