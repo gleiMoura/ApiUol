@@ -5,7 +5,6 @@ import { userType } from "../interfaces/index";
 async function findParticipant(name: userType) {
     const database = await db;
     const participant = await database.collection('participants').findOne({ name });
-    console.log(participant)
     return participant;
 };
 
@@ -73,7 +72,7 @@ async function updateParticipant(name: userType) {
 async function deleteParticipant() {
     try {
         const database = await db;
-        const thirtySecondsAgo = Date.now() - (30 * 1000);
+        const thirtySecondsAgo = Date.now() - (10 * 1000);
 
         await database.collection("participants").deleteMany({ lastStatus: thirtySecondsAgo })
     } catch (e) {

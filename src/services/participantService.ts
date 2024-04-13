@@ -39,6 +39,7 @@ async function getAllParticipants() {
 
 function removeParticipant() {
     setInterval(async () => {
+        console.log("entrou no removeparticipant")
         await participantRepository.deleteParticipant();
     }, 15000)
 }
