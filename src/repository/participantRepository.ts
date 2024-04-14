@@ -17,27 +17,6 @@ async function createParticipant(name: userType) {
     return "created"
 };
 
-async function createEnterMessage(name: userType) {
-    try {
-        const database = await db;
-        await database.collection("messages").insertOne({
-            from: name,
-            to: 'Todos',
-            text: 'entra na sala...',
-            type: 'status',
-            time: dayjs().format('HH:mm:ss')
-        });
-
-        return "Message was created!"
-    } catch (e) {
-        return {
-            error: e,
-            message: "message was not created!"
-        };
-    }
-
-};
-
 async function findAllParticipants() {
     try {
         const database = await db;
@@ -70,11 +49,29 @@ async function updateParticipant(name: userType) {
 }
 
 async function deleteParticipant() {
-    try {
-        const database = await db;
-        const secondsAgo = Date.now() - (20 * 1000);
+    const database = await db;
+    const secondsAgo = Date.now() - (10 * 1000);
 
-        await database.collection("participants").deleteMany({ lastStatus: { $lt: secondsAgo } }) //lt means less than
+    /* [
+        {
+            _id: new ObjectId("661b22faa1beb5965f875129"),
+            name: 'João',
+            lastStatus: 1713054458075
+        }
+    ] */
+
+    try {
+        const peopleToDelete = await database.collection("participants").find({ lastStatus: { $lt: secondsAgo } }).toArray();
+
+        const exitMessages = peopleToDelete.map(person => {
+            return (
+                { from: person.name, to: 'Todos', text: 'sai da sala...', type: 'status', time: dayjs().format('HH:mm:ss') }
+            )
+        });
+
+        await database.collection("participants").deleteMany({ lastStatus: { $lt: secondsAgo } }) // It means less than
+
+        await database.collection("messages").insertMany(exitMessages);
     } catch (e) {
         return {
             error: e,
@@ -86,7 +83,6 @@ async function deleteParticipant() {
 export default {
     findParticipant,
     createParticipant,
-    createEnterMessage,
     findAllParticipants,
     updateParticipant,
     deleteParticipant
