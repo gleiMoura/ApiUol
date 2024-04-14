@@ -11,7 +11,7 @@ export async function createMessage(req: Request, res: Response) {
     res.sendStatus(201);
 };
 
-export async function sendMessages(req: Request, res: Response) {
+export async function getAllMessages(req: Request, res: Response) {
     const { limit } = req?.query;
     const { user } = req?.headers;
 
