@@ -34,19 +34,19 @@ async function getMessages(limit: limitType, user: userType) {
     const to: toType = {
         to: user
     };
-    const messagesFrom: completeMessageType[] = await messageRepository.findMessages(from);
-    const messagesTo: completeMessageType[] = await messageRepository.findMessages(to);
+    const messagesFrom = await messageRepository.findMessages(from);
+    const messagesTo = await messageRepository.findMessages(to);
 
     const allMessages = [
         ...messagesFrom,
         ...messagesTo
     ];
 
-    if(limit && typeof limit === 'string') {
+    if (limit && typeof limit === 'string') {
         const limitNumber = parseInt(limit);
         let messagesWithLimit: object[] = [];
         allMessages.forEach((message: object, index) => {
-            if(index < limitNumber) {
+            if (index < limitNumber) {
                 messagesWithLimit.push(message);
             };
         });
