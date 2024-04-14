@@ -1,6 +1,7 @@
 import db from "../config/index";
+import dayjs from "dayjs";
 import { completeMessageType } from "../interfaces/index";
-import { fromType, toType } from "../interfaces/index";
+import { fromType, toType, userType } from "../interfaces/index";
 
 async function createMessage(completeMessage: completeMessageType) {
     try {
@@ -22,7 +23,29 @@ async function findMessages(fromOrTo: fromType | toType) {
     };
 };
 
+async function createEnterMessage(name: userType) {
+    try {
+        const database = await db;
+        await database.collection("messages").insertOne({
+            from: name,
+            to: 'Todos',
+            text: 'entra na sala...',
+            type: 'status',
+            time: dayjs().format('HH:mm:ss')
+        });
+
+        return "Message was created!"
+    } catch (e) {
+        return {
+            error: e,
+            message: "message was not created!"
+        };
+    }
+
+};
+
 export default {
     createMessage,
-    findMessages
+    findMessages,
+    createEnterMessage,
 }
