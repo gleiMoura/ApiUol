@@ -1,3 +1,4 @@
+import messagesRepository from "repository/messagesRepository";
 import { userType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 
@@ -15,7 +16,7 @@ async function registerParticipant(name: userType) {
 
     await participantRepository.createParticipant(name);
 
-    await participantRepository.createEnterMessage(name);
+    await messagesRepository.createEnterMessage(name);
 
     return "Participante cadastrado com sucesso!"
 };
@@ -39,7 +40,6 @@ async function getAllParticipants() {
 
 function removeParticipant() {
     setInterval(async () => {
-        console.log("entrou no removeparticipant")
         await participantRepository.deleteParticipant();
     }, 15000)
 }
