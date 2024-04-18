@@ -4,9 +4,13 @@ export interface participantType {
 };
 
 export interface messageType {
+    from: string,
     to: string,
     text: string,
-    type: string
+    type: string,
+    time: string,
+    error: any;
+    message: string;
 };
 
 export interface completeMessageType {
@@ -18,7 +22,7 @@ export interface completeMessageType {
 };
 
 export interface fromType {
-    from: userType 
+    from: userType
 };
 
 export interface toType {

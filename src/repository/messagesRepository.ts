@@ -44,8 +44,34 @@ async function createEnterMessage(name: userType) {
 
 };
 
+async function findMessageById(id: number) {
+    try {
+        const database = await db;
+        const existMessage = await database.collection("messages").findOne({ id })
+    } catch (e) {
+        return {
+            error: e,
+            message: "message was not found"
+        };
+    }
+};
+
+async function deleteMessageByMessage(message: any) {
+    const database = await db;
+    try {
+        await database.collection("messages").deleteOne({ id: message.id });
+    } catch (e) {
+        return {
+            error: e,
+            message: "message cannot be deleted!"
+        }
+    };
+}
+
 export default {
     createMessage,
     findMessages,
     createEnterMessage,
+    findMessageById,
+    deleteMessageByMessage
 }

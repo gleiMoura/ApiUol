@@ -4,7 +4,7 @@ import { fromType, messageType, toType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 import messageRepository from "../repository/messagesRepository";
 import { limitType, userType } from "../interfaces/index";
-import { completeMessageType } from "../interfaces/index";
+import messagesRepository from "../repository/messagesRepository";
 
 async function gatherDatas(data: messageType, user: userType) {
     const participant = await participantRepository.findParticipant(user);
@@ -57,7 +57,34 @@ async function getMessages(limit: limitType, user: userType) {
     return allMessages;
 };
 
+async function deleteMessage(id: any, user: userType) {
+    const existMessage: any = await messagesRepository.findMessageById(id);
+
+    if (!existMessage) {
+        throw {
+            response: {
+                status: 404,
+                message: "Mensagem nao encontrada!"
+
+            }
+        }
+    }
+
+    if (existMessage.from !== user) {
+        throw {
+            response: {
+                status: 401,
+                message: "Não é dono!"
+
+            }
+        }
+    }
+
+    await messageRepository.deleteMessageByMessage(existMessage);
+}
+
 export default {
     gatherDatas,
-    getMessages
+    getMessages,
+    deleteMessage
 };
