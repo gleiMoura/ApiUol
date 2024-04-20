@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import { Request, Response } from "express";
 import { messageType } from "../interfaces/index";
 import messageService from "../services/messageService";
 
@@ -21,8 +21,8 @@ export async function getAllMessages(req: Request, res: Response) {
 };
 
 export async function removeMessage(req: Request, res: Response) {
-    const {user} = req?.headers;
-    const {id} = req?.query;
+    const { user } = req?.headers;
+    const { id } = req?.query;
 
     const message = await messageService.deleteMessage(id, user);
 }
