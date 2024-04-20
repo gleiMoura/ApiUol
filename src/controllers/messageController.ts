@@ -22,7 +22,9 @@ export async function getAllMessages(req: Request, res: Response) {
 
 export async function removeMessage(req: Request, res: Response) {
     const { user } = req?.headers;
-    const { id } = req?.query;
+    const { id } = req?.params;
 
-    const message = await messageService.deleteMessage(id, user);
+    await messageService.deleteMessage(id, user);
+
+    res.status(200).send("Mensagem removida com sucesso!")
 }
