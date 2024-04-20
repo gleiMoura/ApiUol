@@ -2,6 +2,7 @@ import db from "../config/index";
 import dayjs from "dayjs";
 import { completeMessageType } from "../interfaces/index";
 import { fromType, toType, userType } from "../interfaces/index";
+import { ObjectId } from "mongodb";
 
 async function createMessage(completeMessage: completeMessageType) {
     try {
@@ -44,10 +45,11 @@ async function createEnterMessage(name: userType) {
 
 };
 
-async function findMessageById(id: number) {
+async function findMessageById(id: any) {
     try {
         const database = await db;
-        const existMessage = await database.collection("messages").findOne({ id })
+        const existMessage = await database.collection("messages").findOne({ _id: new ObjectId(id) });
+        return existMessage;
     } catch (e) {
         return {
             error: e,
@@ -56,10 +58,10 @@ async function findMessageById(id: number) {
     }
 };
 
-async function deleteMessageByMessage(message: any) {
+async function deleteMessageById(id: any) {
     const database = await db;
     try {
-        await database.collection("messages").deleteOne({ id: message.id });
+        await database.collection("messages").deleteOne({ _id: new ObjectId(id) });
     } catch (e) {
         return {
             error: e,
@@ -73,5 +75,5 @@ export default {
     findMessages,
     createEnterMessage,
     findMessageById,
-    deleteMessageByMessage
+    deleteMessageById
 }
