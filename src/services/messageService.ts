@@ -80,7 +80,7 @@ async function deleteMessage(id: any, user: userType) {
         }
     }
 
-    await messageRepository.deleteMessageByMessage(existMessage);
+    await messageRepository.deleteMessageById(id);
 }
 
 export default {
