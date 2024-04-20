@@ -4,13 +4,13 @@ export interface participantType {
 };
 
 export interface messageType {
-    from: string,
+    from?: string,
     to: string,
     text: string,
     type: string,
-    time: string,
-    error: any;
-    message: string;
+    time?: string,
+    error?: any;
+    message?: string;
 };
 
 export interface completeMessageType {
