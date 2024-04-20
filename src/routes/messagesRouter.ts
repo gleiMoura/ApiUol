@@ -7,6 +7,6 @@ const messagesRouter = Router();
 
 messagesRouter.post("/messages", schemaValidator(messageSchema), createMessage);
 messagesRouter.get("/messages", getAllMessages);
-messagesRouter.delete("messages", removeMessage)
+messagesRouter.delete("/messages/:id", removeMessage)
 
 export default messagesRouter;
