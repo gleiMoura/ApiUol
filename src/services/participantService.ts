@@ -41,7 +41,7 @@ async function getAllParticipants() {
 function removeParticipant() {
     setInterval(async () => {
         await participantRepository.deleteParticipant();
-    }, 15000)
+    }, 30000)
 }
 
 export default {
