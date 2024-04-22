@@ -50,7 +50,7 @@ async function updateParticipant(name: userType) {
 
 async function deleteParticipant() {
     const database = await db;
-    const secondsAgo = Date.now() - (10 * 1000);
+    const secondsAgo = Date.now() - (30 * 1000);
 
     /* [
         {
