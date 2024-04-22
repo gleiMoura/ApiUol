@@ -68,6 +68,18 @@ async function deleteMessageById(id: any) {
             message: "message cannot be deleted!"
         }
     };
+};
+
+async function modernizeMessage(newMessage, id) {
+    const database = await db;
+    try {
+        await database.collection("messages").updateOne({ _id: new ObjectId(id) }, newMessage)
+    } catch (e) {
+        return {
+            error: e,
+            message: "message cannot be deleted!"
+        }
+    }
 }
 
 export default {
@@ -75,5 +87,6 @@ export default {
     findMessages,
     createEnterMessage,
     findMessageById,
-    deleteMessageById
+    deleteMessageById,
+    modernizeMessage
 }
