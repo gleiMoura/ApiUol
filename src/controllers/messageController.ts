@@ -27,4 +27,15 @@ export async function removeMessage(req: Request, res: Response) {
     await messageService.deleteMessage(id, user);
 
     res.status(200).send("Mensagem removida com sucesso!")
+};
+
+export async function changeMessage(req: Request, res: Response) {
+    const { user } = req?.headers;
+    const { id } = req?.params;
+    const data: messageType = req.body;
+
+
+    await messageService.updateMessage(user, id, data);
+
+    res.status(200).send("Mensagem atualizada com sucesso!");
 }
