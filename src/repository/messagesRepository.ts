@@ -73,7 +73,10 @@ async function deleteMessageById(id: any) {
 async function modernizeMessage(newMessage, id) {
     const database = await db;
     try {
-        await database.collection("messages").updateOne({ _id: new ObjectId(id) }, newMessage)
+        await database.collection("messages").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { ...newMessage } }
+        )
     } catch (e) {
         return {
             error: e,
