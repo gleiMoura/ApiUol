@@ -52,14 +52,6 @@ async function deleteParticipant() {
     const database = await db;
     const secondsAgo = Date.now() - (30 * 1000);
 
-    /* [
-        {
-            _id: new ObjectId("661b22faa1beb5965f875129"),
-            name: 'João',
-            lastStatus: 1713054458075
-        }
-    ] */
-
     try {
         const peopleToDelete = await database.collection("participants").find({ lastStatus: { $lt: secondsAgo } }).toArray();
 
