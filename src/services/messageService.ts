@@ -119,7 +119,7 @@ async function updateMessage(user, id, newMessage) {
         }
     }
 
-    await messageRepository.modernizeMessage({ ...newMessage, from: user, id: new ObjectId(id) }, id);
+    await messageRepository.modernizeMessage({ ...newMessage, from: user}, id);
 }
 
 export default {
