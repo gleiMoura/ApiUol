@@ -52,7 +52,183 @@ POST /participants
 
 #### Response:
 
-<p color="green"> Participante cadastrado com sucesso! </p>
+<p>status 200 - participante cadastrado com sucesso!</p>
+
+<br/>
+
+#
+<p>Get all participants using app at the moment</p>
+
+```http
+GET /participants
+```
+
+#### Response:
+
+```json
+[
+  {
+    "_id": "66294bf4c30f1818be7d50e8",
+    "name": "Joao",
+    "lastStatus": 1713982452112
+  },
+  {
+    "_id": "66294bf6c30f1818be7d50ea",
+    "name": "Andre",
+    "lastStatus": 1713982454444
+  }
+]
+```
+
+<p>lastStatus is used to know when participant entered at the room.</p>
+<p>_id is saved by database</p>
+
+<br/>
+
+#
+
+```http
+POST /messages
+```
+
+#### Request:
+
+| Body       | Type     | Description                    |
+| :--------- | :------- | :----------------------------- |
+| `to`    | `string` | **Required**. valid name          |
+| `text`  | `string` | **Required**. valid message       |
+| `type`  | `string` | **Required**. type of the message |
+
+<p>"type of the message can be three ways: private-message, message or status</p>
+</br>
+
+# headers
+
+| Headers         | Type     | Description               |
+| :-------------- | :------- | :------------------------ |
+| `User`          | `string` | **Required**. valid name  |
+
+#### Response:
+
+<p>status 200 - created</p>
+
+<br/>
+
+#
+
+```http
+GET /messages?limit='number of messages do you want'
+```
+# headers
+
+| Headers         | Type     | Description               |
+| :-------------- | :------- | :------------------------ |
+| `User`          | `string` | **Required**. valid name  |
+
+<p>Send just messages from person present in User</p>
+
+#### Response:
+
+```json
+[
+  {
+    "_id": "6626b8d32aa7b06dcaf80397",
+    "to": "Maria",
+    "text": "Eu estou morrendo de saudades",
+    "type": "message",
+    "from": "Joao",
+    "time": "16:21:55"
+  },
+  {
+    "_id": "6626b8dc2aa7b06dcaf80399",
+    "from": "Joao",
+    "to": "Todos",
+    "text": "sai da sala...",
+    "type": "status",
+    "time": "16:22:04"
+  },
+  {
+    "_id": "6626ba092aa7b06dcaf8039b",
+    "from": "Joao",
+    "to": "Todos",
+    "text": "entra na sala...",
+    "type": "status",
+    "time": "16:27:05"
+  }
+]
+```
+
+<br/>
+
+```http
+DELETE /messages/'message ID'
+```
+<p>It reveives a path param with the message Id to delete.</p>
+
+# headers
+
+| Headers         | Type     | Description                   |
+| :-------------- | :------- | :---------------------------- |
+| `User`          | `string` | **Required**. valid name      |
+
+<p>It deletes a message from a participant by Id.</p>
+
+#### Response: 
+
+<p>status 404 - message doesn't exist</p>
+<p>status 401 - user is not owner of the message</p>
+<p>status 200 - message was deleted</p>
+
+<br/>
+
+#
+
+```http
+PUT /messages/'message ID'
+```
+<p>It reveives a path param with the message Id to update.</p>
+
+#### Request:
+
+| Body       | Type     | Description                    |
+| :--------- | :------- | :----------------------------- |
+| `to`    | `string` | **Required**. valid name          |
+| `text`  | `string` | **Required**. valid message       |
+| `type`  | `string` | **Required**. type of the message |
+
+
+# headers
+
+| Headers         | Type     | Description                   |
+| :-------------- | :------- | :---------------------------- |
+| `User`          | `string` | **Required**. valid name      |
+
+<p>It deletes a message from a participant by Id.</p>
+
+#### Response: 
+
+<p>status 404 - message doesn't exist</p>
+<p>status 401 - user is not owner of the message</p>
+<p>status 200 - message was updated</p>
+
+<br/>
+
+#
+
+```http
+POST /status
+```
+# headers
+
+| Headers         | Type     | Description                   |
+| :-------------- | :------- | :---------------------------- |
+| `User`          | `string` | **Required**. name to update  |
+
+<p>It verifies if participant still is in chat and update lastStatus.</p>
+
+#### Response:
+
+<p>status 200 - OK</p>
 
 <br/>
 
@@ -81,7 +257,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd projeto19-drivenpass/
+  cd ApiUol/
 ```
 
 Install dependencies
@@ -104,11 +280,6 @@ Start the server
 
 </br>
 
-## Lessons Learned
-
-In this project I learned a lot about how to structure an API with TypeScript
-
-</br>
 
 ## Acknowledgements
 
