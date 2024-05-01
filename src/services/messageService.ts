@@ -35,24 +35,16 @@ async function getMessages(limit: limitType, user: userType) {
     const to: toType = {
         to: user
     };
-    const messagesFrom = await messageRepository.findMessages(from);
-    const messagesTo = await messageRepository.findMessages(to);
+    const allMessagesFromDb = await messageRepository.findMessages();
 
-    const allMessages = [
-        ...messagesFrom,
-        ...messagesTo
-    ];
+    const allMessages = allMessagesFromDb.filter((message) => {
+        if (message.to === user || message.from === user || message.status === "message") return message
+    });
+
+    console.log(allMessages)
 
     if (limit && typeof limit === 'string') {
-        const limitNumber = parseInt(limit);
-        let messagesWithLimit: object[] = [];
-        allMessages.forEach((message: object, index) => {
-            if (index < limitNumber) {
-                messagesWithLimit.push(message);
-            };
-        });
-
-        return messagesWithLimit;
+        return allMessages.slice(- limit)
     }
 
     return allMessages;
@@ -119,7 +111,7 @@ async function updateMessage(user, id, newMessage) {
         }
     }
 
-    await messageRepository.modernizeMessage({ ...newMessage, from: user}, id);
+    await messageRepository.modernizeMessage({ ...newMessage, from: user }, id);
 }
 
 export default {

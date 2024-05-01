@@ -14,10 +14,10 @@ async function createMessage(completeMessage: completeMessageType) {
     }
 };
 
-async function findMessages(fromOrTo: fromType | toType) {
+async function findMessages() {
     try {
         const database = await db;
-        const messages = await database.collection("messages").find(fromOrTo).toArray();
+        const messages = await database.collection("messages").find().toArray();
         return messages
     } catch (e) {
         console.log(e);
