@@ -41,8 +41,6 @@ async function getMessages(limit: limitType, user: userType) {
         if (message.to === user || message.from === user || message.status === "message") return message
     });
 
-    console.log(allMessages)
-
     if (limit && typeof limit === 'string') {
         return allMessages.slice(- limit)
     }
