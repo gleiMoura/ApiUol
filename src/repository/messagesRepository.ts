@@ -1,7 +1,7 @@
 import db from "../config/index";
 import dayjs from "dayjs";
 import { completeMessageType } from "../interfaces/index";
-import { fromType, toType, userType } from "../interfaces/index";
+import { userType } from "../interfaces/index";
 import { ObjectId } from "mongodb";
 
 async function createMessage(completeMessage: completeMessageType) {
@@ -14,10 +14,18 @@ async function createMessage(completeMessage: completeMessageType) {
     }
 };
 
-async function findMessages() {
+async function findMessages(user: userType) {
     try {
         const database = await db;
-        const messages = await database.collection("messages").find().toArray();
+        const query = {
+            $or: [
+                { to: user },
+                { from: user },
+                { type: { $in: ["message", "status"] } }
+            ]
+        };
+
+        const messages = await database.collection("messages").find(query).toArray();
         return messages
     } catch (e) {
         console.log(e);

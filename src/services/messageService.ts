@@ -28,19 +28,7 @@ async function gatherDatas(data: messageType, user: userType) {
 };
 
 async function getMessages(limit: limitType, user: userType) {
-    const from: fromType = {
-        from: user
-    };
-    const to: toType = {
-        to: user
-    };
-    const allMessagesFromDb = await messageRepository.findMessages();
-
-    const allMessages = allMessagesFromDb.filter((message) => {
-        if (message.to === user || message.from === user || message.type === "message" || message.type === "status") {
-            return message
-        }
-    });
+    const allMessages = await messageRepository.findMessages(user);
 
     if (limit && typeof limit === 'string') {
         return allMessages.slice(- limit)
