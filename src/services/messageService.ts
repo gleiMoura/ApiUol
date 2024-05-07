@@ -5,7 +5,6 @@ import participantRepository from "../repository/participantRepository";
 import messageRepository from "../repository/messagesRepository";
 import { limitType, userType } from "../interfaces/index";
 import messagesRepository from "../repository/messagesRepository";
-import { ObjectId } from "mongodb";
 
 async function gatherDatas(data: messageType, user: userType) {
     const participant = await participantRepository.findParticipant(user);
@@ -38,7 +37,9 @@ async function getMessages(limit: limitType, user: userType) {
     const allMessagesFromDb = await messageRepository.findMessages();
 
     const allMessages = allMessagesFromDb.filter((message) => {
-        if (message.to === user || message.from === user || message.status === "message") return message
+        if (message.to === user || message.from === user || message.type === "message" || message.type === "status") {
+            return message
+        }
     });
 
     if (limit && typeof limit === 'string') {
