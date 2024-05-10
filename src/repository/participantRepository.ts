@@ -32,13 +32,15 @@ async function findAllParticipants() {
 
 async function updateParticipant(name: userType) {
     const update = {
-        name,
-        lastStatus: Date.now()
+        $set: {
+            name,
+            lastStatus: Date.now()
+        }
     };
 
     try {
         const database = await db;
-        const participant = await database.collection("participant").findOneAndUpdate({ name }, update);
+        const participant = await database.collection("participants").findOneAndUpdate({ name }, update, { returnDocument: 'after' });
         return participant;
     } catch (e) {
         return {
