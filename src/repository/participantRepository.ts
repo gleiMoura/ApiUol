@@ -40,7 +40,7 @@ async function updateParticipant(name: userType) {
 
     try {
         const database = await db;
-        const participant = await database.collection("participants").findOneAndUpdate({ name }, update, { returnDocument: 'after' });
+        const participant = (await database.collection("participants").findOneAndUpdate({ name }, update, { returnDocument: 'after' })).value;
         return participant;
     } catch (e) {
         return {
