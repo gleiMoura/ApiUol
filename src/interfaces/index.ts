@@ -14,7 +14,8 @@ export interface completeMessageType {
     text: string,
     type: string
     from: userType,
-    time: string
+    time: string,
+    wasEdited?: boolean
 };
 
 export interface fromType {

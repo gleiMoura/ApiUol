@@ -21,7 +21,8 @@ async function gatherDatas(data: messageType, user: userType) {
     const completeMessage = {
         ...data,
         from: user,
-        time: dayjs().format("HH:mm:ss")
+        time: dayjs().format("HH:mm:ss"),
+        wasEdited: false
     };
 
     await messageRepository.createMessage(completeMessage);
@@ -73,7 +74,6 @@ async function updateMessage(user, id, newMessage) {
             response: {
                 status: 422,
                 message: "Participante não encontrado!"
-
             }
         }
     }
@@ -98,7 +98,7 @@ async function updateMessage(user, id, newMessage) {
         }
     }
 
-    await messageRepository.modernizeMessage({ ...newMessage, from: user }, id);
+    await messageRepository.modernizeMessage({ ...newMessage, from: user, time: dayjs().format("HH:mm:ss"), wasEdited: true }, id);
 }
 
 export default {
