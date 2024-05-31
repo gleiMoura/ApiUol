@@ -18,13 +18,9 @@ describe("Unit Participant Service tests", () => {
         jest.spyOn(participantRepository, "createParticipant")
             .mockImplementationOnce((): any => "created");
 
-        jest.spyOn(participantRepository, "createEnterMessage")
-            .mockImplementationOnce((): any => "Message was created!");
-
         await participantService.registerParticipant(participantName);
 
         expect(participantRepository.createParticipant).toBeCalled();
-        expect(participantRepository.createEnterMessage).toBeCalled();
     });
 
     it("shouldn't create an exist participant", async () => {
@@ -41,7 +37,7 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("should get all participants", async () => {
-        const participants = factories.fakeParticipants;
+        const participants: any = factories.fakeParticipants;
 
         jest.spyOn(participantRepository, "findAllParticipants")
             .mockImplementationOnce(async () => participants);
@@ -53,11 +49,11 @@ describe("Unit Participant Service tests", () => {
 });
 
 //message unit tests
-describe("Unit Participant Service tests", () => {
+describe("Unit Messages Service tests", () => {
     it("should create a message", async () => {
         const message: messageType = factories.fakeMessage;
 
-        const user: string = factories.fakeParticipant;
+        const user: any = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
             .mockImplementationOnce(async () => user);
@@ -72,45 +68,39 @@ describe("Unit Participant Service tests", () => {
     });
 
     it("it shouldn't create a message because participant doesn't exist", async () => {
-        const message: messageType = factories.fakeMessage;
-
-        const user: string = factories.fakeParticipant;
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
-            .mockImplementationOnce(async () => { });
-
-        jest.spyOn(messagesRepository, "createMessage")
-            .mockImplementationOnce((): any => { });
+            .mockImplementationOnce(async () => null);
 
         try {
-            await messageService.gatherDatas(message, user)
+            await messageService.gatherDatas(message, user);
+            throw new Error("Expected error was not thrown");
         } catch (e) {
+            expect(e.response).toBeDefined();
             expect(e.response.message).toMatch("Usuário não cadastrado no banco de dados!");
         }
     });
 
     it("it should get all messages from a user", async () => {
         const user = factories.fakeParticipant;
-        const allMessagesTo = factories.allFakeMessagesTo(user);
-        const allMessagesFrom = factories.allFakeMessagesFrom(user);
+        const allMessages: any = factories.allFakeMessages(user);
 
         jest.spyOn(messagesRepository, "findMessages")
-            .mockImplementationOnce(async () => allMessagesTo)
-            .mockImplementationOnce(async () => allMessagesFrom)
+            .mockImplementationOnce(async () => allMessages)
 
         const messages = await messageService.getMessages(undefined, user);
 
-        expect(messages).toEqual([...allMessagesTo, ...allMessagesFrom])
+        expect(messages).toEqual([...allMessages])
     });
 
     it("it shoult get a specific number of messages", async () => {
         const user = factories.fakeParticipant;
-        const allMessagesTo = factories.allFakeMessagesTo(user);
-        const allMessagesFrom = factories.allFakeMessagesFrom(user);
+        const allMessages: any = factories.allFakeMessages(user);
 
         jest.spyOn(messagesRepository, "findMessages")
-            .mockImplementationOnce(async () => allMessagesTo)
-            .mockImplementationOnce(async () => allMessagesFrom)
+            .mockImplementationOnce(async () => allMessages)
 
         const limit = factories.generateRandomNumber(1, 100) + ""; //must be string
 
