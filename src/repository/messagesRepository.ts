@@ -88,7 +88,7 @@ async function modernizeMessage(newMessage, id) {
     } catch (e) {
         return {
             error: e,
-            message: "message cannot be deleted!"
+            message: "message cannot be edited!"
         }
     }
 }
