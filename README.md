@@ -13,6 +13,8 @@
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="30px"/>
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" height="30px"/>  
   <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express.js&logoColor=white" height="30px"/>
+  <img src="https://img.shields.io/badge/Jest-323330?style=for-the-badge&logo=Jest&logoColor=white" height="30px"/>
+  
   <!-- Badges source: https://dev.to/envoy_/150-badges-for-github-pnk -->
 </div>
 
@@ -30,6 +32,8 @@ This API simulates the classic chat platform "Pate Papo UOL," where users could 
 -   Get all participants
 -   Create a message
 -   Get Messages
+-   Edit a message
+-   Delete a message
 
 </br>
 
@@ -43,9 +47,9 @@ POST /participants
 
 #### Request:
 
-| Body              | Type     | Description                                       |
-| :---------------- | :------- | :------------------------------------------------ |
-| `name`           | `string` | **Required**. valid name with only text and numbers|
+| Body   | Type     | Description                                         |
+| :----- | :------- | :-------------------------------------------------- |
+| `name` | `string` | **Required**. valid name with only text and numbers |
 
 
 </br>
@@ -93,20 +97,20 @@ POST /messages
 
 #### Request:
 
-| Body       | Type     | Description                    |
-| :--------- | :------- | :----------------------------- |
-| `to`    | `string` | **Required**. valid name          |
-| `text`  | `string` | **Required**. valid message       |
-| `type`  | `string` | **Required**. type of the message |
+| Body   | Type     | Description                       |
+| :----- | :------- | :-------------------------------- |
+| `to`   | `string` | **Required**. valid name          |
+| `text` | `string` | **Required**. valid message       |
+| `type` | `string` | **Required**. type of the message |
 
 <p>"type of the message can be three ways: private-message, message or status</p>
 </br>
 
 # headers
 
-| Headers         | Type     | Description               |
-| :-------------- | :------- | :------------------------ |
-| `User`          | `string` | **Required**. valid name  |
+| Headers | Type     | Description              |
+| :------ | :------- | :----------------------- |
+| `User`  | `string` | **Required**. valid name |
 
 #### Response:
 
@@ -121,9 +125,9 @@ GET /messages?limit='number of messages do you want'
 ```
 # headers
 
-| Headers         | Type     | Description               |
-| :-------------- | :------- | :------------------------ |
-| `User`          | `string` | **Required**. valid name  |
+| Headers | Type     | Description              |
+| :------ | :------- | :----------------------- |
+| `User`  | `string` | **Required**. valid name |
 
 <p>Send just messages from person present in User</p>
 
@@ -167,9 +171,9 @@ DELETE /messages/'message ID'
 
 # headers
 
-| Headers         | Type     | Description                   |
-| :-------------- | :------- | :---------------------------- |
-| `User`          | `string` | **Required**. valid name      |
+| Headers | Type     | Description              |
+| :------ | :------- | :----------------------- |
+| `User`  | `string` | **Required**. valid name |
 
 <p>It deletes a message from a participant by Id.</p>
 
@@ -190,18 +194,18 @@ PUT /messages/'message ID'
 
 #### Request:
 
-| Body       | Type     | Description                    |
-| :--------- | :------- | :----------------------------- |
-| `to`    | `string` | **Required**. valid name          |
-| `text`  | `string` | **Required**. valid message       |
-| `type`  | `string` | **Required**. type of the message |
+| Body   | Type     | Description                       |
+| :----- | :------- | :-------------------------------- |
+| `to`   | `string` | **Required**. valid name          |
+| `text` | `string` | **Required**. valid message       |
+| `type` | `string` | **Required**. type of the message |
 
 
 # headers
 
-| Headers         | Type     | Description                   |
-| :-------------- | :------- | :---------------------------- |
-| `User`          | `string` | **Required**. valid name      |
+| Headers | Type     | Description              |
+| :------ | :------- | :----------------------- |
+| `User`  | `string` | **Required**. valid name |
 
 <p>It deletes a message from a participant by Id.</p>
 
@@ -220,9 +224,9 @@ POST /status
 ```
 # headers
 
-| Headers         | Type     | Description                   |
-| :-------------- | :------- | :---------------------------- |
-| `User`          | `string` | **Required**. name to update  |
+| Headers | Type     | Description                  |
+| :------ | :------- | :--------------------------- |
+| `User`  | `string` | **Required**. name to update |
 
 <p>It verifies if participant still is in chat and update lastStatus.</p>
 
