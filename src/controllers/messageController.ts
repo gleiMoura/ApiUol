@@ -34,7 +34,6 @@ export async function changeMessage(req: Request, res: Response) {
     const { id } = req?.params;
     const data: messageType = req.body;
 
-
     await messageService.updateMessage(user, id, data);
 
     res.status(200).send("Mensagem atualizada com sucesso!");
