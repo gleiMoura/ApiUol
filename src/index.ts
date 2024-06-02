@@ -1,6 +1,5 @@
-import app from "./app.js";
-import chalk from "chalk"
+import app from "./app";
 
 app.listen(5000, () => {
-    console.log(chalk.green.bold("Server is running!"));
+    console.log("Server is running!");
 })

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { updateParticipant } from "controllers/statusController";
+import { updateParticipant } from "../controllers/statusController";
 
 const statusRouter = Router();
 

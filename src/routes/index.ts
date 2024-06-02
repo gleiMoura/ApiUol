@@ -1,7 +1,7 @@
 import Router from "express";
-import participantRouter from "./participantRouter.js";
-import messagesRouter from "./messagesRouter.js"
-import statusRouter from "./statusRouter.js";
+import participantRouter from "./participantRouter";
+import messagesRouter from "./messagesRouter"
+import statusRouter from "./statusRouter";
 
 const router = Router();
 

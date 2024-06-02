@@ -1,9 +1,9 @@
 import express, { json } from "express";
 import cors from "cors";
 import "express-async-errors";
-import router from "./routes/index.js";
-import errorHandler from "./middlewares/errorValidator.js";
-import participantService from "services/participantService.js";
+import router from "./routes/index";
+import errorHandler from "./middlewares/errorValidator";
+import participantService from "./services/participantService";
 
 const repeatedFunction = participantService.removeParticipant;
 

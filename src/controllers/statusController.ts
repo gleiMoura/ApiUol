@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import participantService from "services/participantService";
+import participantService from "../services/participantService";
 
 export async function updateParticipant(req: Request, res: Response) {
     const { user } = req.headers;

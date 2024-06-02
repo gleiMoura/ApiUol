@@ -1,4 +1,4 @@
-import messagesRepository from "repository/messagesRepository";
+import messagesRepository from "../repository/messagesRepository";
 import { userType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 

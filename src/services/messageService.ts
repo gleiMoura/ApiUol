@@ -1,6 +1,6 @@
 
 import dayjs from "dayjs";
-import { fromType, messageType, toType } from "../interfaces/index";
+import { messageType } from "../interfaces/index";
 import participantRepository from "../repository/participantRepository";
 import messageRepository from "../repository/messagesRepository";
 import { limitType, userType } from "../interfaces/index";
