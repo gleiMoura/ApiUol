@@ -242,11 +242,11 @@ POST /status
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`DATABASE_URL = postgres://UserName:Password@Hostname:5432/DatabaseName`
+`MONGO_URL_DEV = mongodb://localhost:27017/`
 
 `PORT = number #recommended:5000`
 
-`SECRET = any string`
+`BANCO = batepapo`
 
 </br>
 
