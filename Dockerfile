@@ -1,6 +1,6 @@
 FROM node:20
 
-WORKDIR /ApiUol
+WORKDIR /apiuol
 
 COPY package*.json ./
 
@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+COPY .env .env
+
 RUN npm run build
 
-CMD ["node", "dist/src/index.js"]
+CMD ["npm", "run", "start"]
