@@ -241,7 +241,15 @@ POST /status
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
+MONGO_URL=mongodb://my-mongo:27017/
+MONGO_URL_DEV=mongodb://localhost:27017/
+BANCO=batepapo
+PORT=5000
 
+This URL is used in Docker Compose to inicialize with docker
+`MONGO_URL = mongodb://localhost:27017/`
+
+This URL is used in Development environment
 `MONGO_URL_DEV = mongodb://localhost:27017/`
 
 `PORT = number #recommended:5000`
@@ -255,7 +263,7 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://github.com/gleiMoura/projeto19-drivenpass
+  git clone https://github.com/gleiMoura/ApiUol.git
 ```
 
 Go to the project directory
@@ -270,20 +278,20 @@ Install dependencies
   npm install
 ```
 
-Create database
-
-```bash
-  npx prisma migrate reset
-```
-
 Start the server
 
 ```bash
-  npm run start
+  npm run dev
 ```
 
 </br>
 
+## Run with docker-compose.yml
+
+```bash
+  docker-compose up
+```
+</br>
 
 ## Acknowledgements
 
