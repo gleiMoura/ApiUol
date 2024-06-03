@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  apiuol:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apiuol
+    ports: 
+      - "5000:5000"
+    depends_on: 
+      - mongo
+    environment:
+      - PORT=${PORT}
+      - MONGO_URI=${MONGO_URI}
+
+  mongo:
+    image: mongo:latest
+    container_name: my-mongo
+    ports:
+      - "1234:27017"
+    volumes: 
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
