@@ -240,14 +240,20 @@ POST /status
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
-MONGO_URL=mongodb://my-mongo:27017/
+To run this project, you will need to add the following environment variables to your .env.development file (it's used in command 'npm run dev')
+
 MONGO_URL_DEV=mongodb://localhost:27017/
 BANCO=batepapo
 PORT=5000
 
+And on your .env.production (it's used in command 'npm run start')
+
+MONGO_URL=mongodb://my-mongo:27017/
+BANCO=batepapo
+PORT=5000
+
 This URL is used in Docker Compose to inicialize with docker
-`MONGO_URL = mongodb://localhost:27017/`
+`MONGO_URL = mongodb://my-mongo:27017/`
 
 This URL is used in Development environment
 `MONGO_URL_DEV = mongodb://localhost:27017/`
