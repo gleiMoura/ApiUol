@@ -1,11 +1,11 @@
-import factories from "./factories/index";
-import participantRepository from "../src/repository/participantRepository";
-import messagesRepository from "../src/repository/messagesRepository";
-import participantService from "../src/services/participantService";
-import messageService from "../src/services/messageService";
+import factories from "../factories/index";
+import participantRepository from "../../src/repository/participantRepository";
+import messagesRepository from "../../src/repository/messagesRepository";
+import participantService from "../../src/services/participantService";
+import messageService from "../../src/services/messageService";
 import {
     messageType,
-} from ".././src/interfaces/index"
+} from "../../src/interfaces/index"
 
 //Partipant unit tests
 describe("Unit Participant Service tests", () => {
@@ -13,14 +13,14 @@ describe("Unit Participant Service tests", () => {
         const participantName = factories.fakeParticipant;
 
         jest.spyOn(participantRepository, "findParticipant")
-            .mockImplementationOnce((): any => { });
+            .mockImplementationOnce((): any => undefined);
 
         jest.spyOn(participantRepository, "createParticipant")
             .mockImplementationOnce((): any => "created");
 
         await participantService.registerParticipant(participantName);
 
-        expect(participantRepository.createParticipant).toBeCalled();
+        expect(participantRepository.createParticipant).toHaveBeenCalledWith(participantName);
     });
 
     it("shouldn't create an exist participant", async () => {
