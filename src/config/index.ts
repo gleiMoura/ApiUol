@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: '.env.development' })
 }
 
-const Client = process.env.MONGO_URL_DEV;
+const Client = process.env.MONGO_URL;
 
 async function init() {
   const mongoClient = new MongoClient(Client);
