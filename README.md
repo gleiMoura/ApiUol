@@ -24,6 +24,13 @@
 
 This API simulates the classic chat platform "Pate Papo UOL," where users could engage in real-time conversations. With UOL API, you can chat with friends and meet new people. Experience a seamless and dynamic messaging environment designed for making connections and keeping conversations flowing.
 
+# Stack
+- Database - it uses mongoDB;
+- Typescript - It uses the superset Typescript with Node to code all project;
+- Exepress - To create the server it uses the framework Express;
+- Jest -  To write unit and ingration tests it uses Jest.
+
+
 </br>
 
 ## Features
