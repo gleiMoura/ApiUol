@@ -1,5 +1,6 @@
 node_modules
 covarage/
-.env
+.env.development
+.env.production
 dist
 
