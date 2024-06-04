@@ -1,9 +1,13 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: ".env.production" });
+} else {
+  dotenv.config({ path: '.env.development' })
+}
 
-const Client = process.env.MONGO_URL ? process.env.MONGO_URL : process.env.MONGO_URL_DEV;
+const Client = process.env.MONGO_URL_DEV;
 
 async function init() {
   const mongoClient = new MongoClient(Client);
