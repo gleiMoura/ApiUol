@@ -5,20 +5,20 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: apiuol
-    ports: 
+    ports:
       - "5000:5000"
-    depends_on: 
+    depends_on:
       - mongo
     environment:
-      - PORT=${PORT}
-      - MONGO_URI=${MONGO_URI}
+      - PORT=5000
+      - MONGO_URL=mongodb://my-mongo:27017/
 
   mongo:
     image: mongo:latest
     container_name: my-mongo
     ports:
       - "1234:27017"
-    volumes: 
+    volumes:
       - mongo-data:/data/db
 
 volumes:
