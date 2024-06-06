@@ -31,6 +31,17 @@ async function gatherDatas(data: messageType, user: userType) {
 async function getMessages(limit: limitType, user: userType) {
     const allMessages = await messageRepository.findMessages(user);
 
+    const limitNumber = parseInt(limit)
+    if (!limitNumber) {
+        throw {
+            response: {
+                status: 410,
+                message: "Limit deve conter apenas uma string numérica!"
+
+            }
+        }
+    }
+
     if (limit && typeof limit === 'string') {
         return allMessages.slice(- limit)
     }
