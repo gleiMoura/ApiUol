@@ -15,7 +15,13 @@ export async function getAllMessages(req: Request, res: Response) {
     const { limit } = req?.query;
     const { user } = req?.headers;
 
-    const messages = await messageService.getMessages(limit, user);
+    const limitStr = Array.isArray(limit) ? limit[0] : limit;
+    const userStr = Array.isArray(user) ? user[0] : user;
+
+    const limitValue = limitStr ? String(limitStr) : undefined;
+    const userValue = userStr ? String(userStr) : undefined;
+
+    const messages = await messageService.getMessages(limitValue, userValue);
 
     res.status(201).send(messages);
 };
