@@ -26,6 +26,6 @@ export interface toType {
     to: userType
 }
 
-export type limitType = string | QueryString.ParsedQs
+export type limitType = string
 
 export type userType = string | string[] | undefined
