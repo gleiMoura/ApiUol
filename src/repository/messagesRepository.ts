@@ -53,7 +53,7 @@ async function createEnterMessage(name: userType) {
 
 };
 
-async function findMessageById(id: any) {
+async function findMessageById(id: string) {
     try {
         const database = await db;
         const existMessage = await database.collection("messages").findOne({ _id: new ObjectId(id) });
@@ -78,7 +78,7 @@ async function deleteMessageById(id: any) {
     };
 };
 
-async function modernizeMessage(newMessage, id) {
+async function modernizeMessage(newMessage: any, id: string) {
     const database = await db;
     try {
         await database.collection("messages").updateOne(
