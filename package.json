@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "NODE_ENV=production node dist/src/index.js",
     "dev": "NODE_ENV=development tsx watch src/index.ts",
-    "unit:test": "dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/unit"
+    "unit:test": "dotenv -e .env.test jest -- -i --testPathPattern=tests/unit",
+    "int:test": "dotenv -e .env.test jest -- -i --testPathPattern=tests/integration"
   },
   "keywords": [],
   "author": "",
