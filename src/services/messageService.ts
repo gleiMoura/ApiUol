@@ -75,7 +75,7 @@ async function deleteMessage(id: any, user: userType) {
     await messageRepository.deleteMessageById(id);
 };
 
-async function updateMessage(user, id, newMessage) {
+async function updateMessage(user: userType, id: string, newMessage: messageType) {
     const existMessage: any = await messageRepository.findMessageById(id);
 
     const existParticipant: any = await participantRepository.findParticipant(user);
