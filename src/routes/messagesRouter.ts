@@ -1,12 +1,12 @@
-import schemaValidator from "../middlewares/schemaValidator.js";
-import messageSchema from "../schemas/messageSchema.js";
+import schemaValidator from "../middlewares/schemaValidator";
+import messageSchema from "../schemas/messageSchema";
 import { Router } from "express";
 import {
     createMessage,
     getAllMessages,
     removeMessage,
     changeMessage
-} from "../controllers/messageController.js";
+} from "../controllers/messageController";
 
 const messagesRouter = Router();
 
