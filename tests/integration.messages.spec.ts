@@ -6,7 +6,7 @@ import db from "../src/config/index";
 afterEach(async () => {
     const database = await db;
     const collections = await database.collections();
-    for(let collection of collections) {
+    for (let collection of collections) {
         await collection.deleteMany({});
     }
 })
@@ -78,12 +78,32 @@ describe("POST /messages", () => {
 });
 
 describe("GET /messages", () => {
-    it("Given a valid user name it must return 201", () => {
+    it("Given a valid user name it must return 201", async () => {
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
 
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
+        await supertest(app)
+            .post("/messages")
+            .set('User', user)
+            .send(message);
+
+        const result = await supertest(app)
+            .get('/messages')
+            .set('User', user)
+
+        const status = result.status;
+
+        const database = await db;
+        const allMessages = await database.collection('messages').find({ name: user });
+
+        expect(status).toEqual(201);
+        expect(allMessages).not.toBeNull();
     });
 
     it("Given a valid user name and a valid massage limit it must return 201", () => {
-
     });
 
     it("Given an invalid user name it must return error 410", () => {
