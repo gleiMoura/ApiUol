@@ -8,13 +8,18 @@ describe("POST /messages", () => {
         const message = factories.fakeMessage;
         const user = factories.fakeParticipant;
 
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
         const result = await supertest(app)
             .post("/messages")
             .set('User', user)
             .send(message);
-        
+
+        const status = result.status;
+
         const database = await db;
-        const createdMessage = await database.collection("messages").findOne({name: user});
+        const createdMessage = await database.collection("messages").findOne({ from: user });
         
         expect(status).toEqual(201);
         expect(createdMessage).not.toBeNull();
