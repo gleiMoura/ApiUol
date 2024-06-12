@@ -1,4 +1,3 @@
-import QueryString from "qs";
 export interface participantType {
     name: string
 };
