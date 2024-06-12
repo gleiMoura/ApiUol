@@ -1,11 +1,11 @@
 import Router from "express";
-import schemaValidator from "../middlewares/schemaValidator.js";
-import participantSchema from "../schemas/participantSchema.js";
-import { createRegister, getPartipantsList } from "../controllers/participantController.js";
+import schemaValidator from "../middlewares/schemaValidator";
+import participantSchema from "../schemas/participantSchema";
+import { createRegister, getPartipantsList } from "../controllers/participantController";
 
 const participantRouter = Router();
 
-participantRouter.post("/participants",schemaValidator(participantSchema), createRegister);
+participantRouter.post("/participants", schemaValidator(participantSchema), createRegister);
 participantRouter.get("/participants", getPartipantsList);
 
 export default participantRouter;
