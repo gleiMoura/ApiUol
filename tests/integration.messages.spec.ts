@@ -106,13 +106,12 @@ describe("GET /messages", () => {
     it("Given a valid user name and a valid massage limit it must return 201", async () => {
         const message = factories.fakeMessage;
         const user = factories.fakeParticipant;
-        const limit = factories.generateRandomNumber;
 
         await supertest(app)
             .post("/participants").send({ name: user })
 
         await supertest(app)
-            .post("/messages?limit=5")
+            .post(`/messages?limit=5`)
             .set('User', user)
             .send(message);
 
@@ -129,12 +128,20 @@ describe("GET /messages", () => {
         expect(allMessages.listenerCount.length).toBeLessThan(5);
     });
 
-    it("Given an invalid user name it must return error 410", () => {
+    it("Given an invalid user name it must return error 410", async () => {
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
+        //user was not registered
 
-    });
+        const result = await supertest(app)
+            .post(`/messages?limit=5`)
+            .set('User', user)
+            .send(message);
 
-    it("Given an invalid limit it must return 201", () => {
-
+        const status = result.status;
+        
+        expect(status).toEqual(410);
+        expect(result).toBeNull(); 
     });
 })
 
