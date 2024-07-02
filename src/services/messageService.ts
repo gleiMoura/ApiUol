@@ -83,7 +83,7 @@ async function updateMessage(user: userType, id: string, newMessage: messageType
 
     const existParticipant: any = await participantRepository.findParticipant(user);
 
-    if (!existParticipant) {
+    if (existParticipant.error) {
         throw {
             response: {
                 status: 422,
@@ -92,7 +92,7 @@ async function updateMessage(user: userType, id: string, newMessage: messageType
         }
     }
 
-    if (!existMessage) {
+    if (existMessage.error) {
         throw {
             response: {
                 status: 404,
