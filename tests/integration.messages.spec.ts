@@ -213,8 +213,31 @@ describe("DELETE /messages/:id", () => {
 });
 
 describe("PUT /messages/:id", () => {
-    it("Given a valid message it must return 201", () => {
-        
+    it("Given a valid message it must return 201", async () => {
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
+
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
+        await supertest(app)
+            .post("/messages")
+            .set('User', user)
+            .send(message);
+
+        const database = await db;
+        const createdMessage = await database.collection("messages").findOne({ from: user });
+
+        const result = await supertest(app)
+            .put(`/messages/${createdMessage._id.toString()}`)
+            .set('User', user)
+            .send({...message, text: faker.address.cityName()})
+
+
+        const status = result.status;
+
+        expect(status).toEqual(200);
+        expect(createdMessage).not.toBeNull();
     });
 
     it("Given an invalid message it must return 410", () => {
