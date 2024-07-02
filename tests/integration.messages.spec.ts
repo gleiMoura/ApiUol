@@ -240,12 +240,35 @@ describe("PUT /messages/:id", () => {
         expect(createdMessage).not.toBeNull();
     });
 
-    it("Given an invalid message it must return 410", () => {
+    it("Given an invalid message it must return 410", async () => {
+        const message = {...factories.fakeMessage, type: "super-message"};
+        const user = factories.fakeParticipant;
 
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
+        await supertest(app)
+            .post("/messages")
+            .set('User', user)
+            .send(message);
+
+        const database = await db;
+        const createdMessage = await database.collection("messages").findOne({ from: user });
+
+        const result = await supertest(app)
+            .put(`/messages/${createdMessage._id.toString()}`)
+            .set('User', user)
+            .send({...message, text: faker.address.cityName()})
+
+
+        const status = result.status;
+
+        expect(status).toEqual(410);
+        expect(createdMessage.type).toBe("status");
     });
 
     it("Given an nonexistent message it must return 404", () => {
-
+        
     });
 
     it("Given a user that is not owner from the message it must return 401", () => {
