@@ -285,8 +285,33 @@ describe("PUT /messages/:id", () => {
         expect(status).toEqual(404);
     });
 
-    it("Given a user that is not owner from the message it must return 401", () => {
+    it("Given a user that is not owner from the message it must return 401", async () => {
+        const message = factories.fakeMessage;
+        const firstUser = faker.name.firstName();
+        const secondUser = faker.name.firstName();
 
+        await supertest(app)
+            .post("/participants").send({ name: firstUser })
+
+        await supertest(app)
+            .post("/participants").send({ name: secondUser })
+
+        await supertest(app)
+            .post("/messages")
+            .set('User', firstUser)
+            .send({ ...message, to: secondUser });
+
+        const database = await db;
+        const createdMessage = await database.collection("messages").findOne({ to: secondUser });
+
+        const result = await supertest(app)
+            .put(`/messages/${createdMessage._id.toString()}`)
+            .set('User', secondUser)
+            .send({...message, text: faker.address.cityName()})
+
+        const status = result.status;
+
+        expect(status).toEqual(401);
     });
 });
 
