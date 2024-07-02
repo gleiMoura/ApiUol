@@ -2,6 +2,7 @@ import app from "../src/app"
 import supertest from "supertest";
 import factories from "./factories/index";
 import db from "../src/config/index";
+import { faker } from "@faker-js/faker";
 
 afterEach(async () => {
     const database = await db;
@@ -128,44 +129,92 @@ describe("GET /messages", () => {
         expect(allMessages.listenerCount.length).toBeLessThan(5);
     });
 
-    it("Given an invalid user name it must return error 410", async () => {
-        const message = factories.fakeMessage;
+    it("Given an invalid user name it must return error 409", async () => {
         const user = factories.fakeParticipant;
         //user was not registered
 
         const result = await supertest(app)
-            .post(`/messages?limit=5`)
+            .get('/messages')
             .set('User', user)
-            .send(message);
+
 
         const status = result.status;
-        
-        expect(status).toEqual(410);
-        expect(result).toBeNull(); 
+
+        expect(status).toEqual(409);
     });
 })
 
 describe("DELETE /messages/:id", () => {
-    it("Given a valid message it must return 201", () => {
+    it("Given a valid id it must return 200", async () => {
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
 
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
+        await supertest(app)
+            .post("/messages")
+            .set('User', user)
+            .send(message);
+
+        const database = await db;
+        const createdMessage = await database.collection("messages").findOne({ from: user });
+
+        const result = await supertest(app)
+            .delete(`/messages/${createdMessage._id.toString()}`)
+            .set('User', user)
+
+
+        const status = result.status;
+
+        expect(status).toEqual(200);
+        expect(createdMessage).not.toBeNull();
     });
 
-    it("Given an invalid message it must return 410", () => {
+    it("Given an nonexistent message id it must return 404", async () => {
+        const user = factories.fakeParticipant;
 
+        const result = await supertest(app)
+            .delete(`/messages/2121212121212121`)
+            .set('User', user)
+
+        const status = result.status;
+
+        expect(status).toEqual(404);
     });
 
-    it("Given an nonexistent message it must return 404", () => {
+    it("Given a user that is not owner from the message it must return 401", async () => {
+        const message = factories.fakeMessage;
+        const firstUser = faker.name.firstName();
+        const secondUser = faker.name.firstName();
 
-    });
+        await supertest(app)
+            .post("/participants").send({ name: firstUser })
 
-    it("Given a user that is not owner from the message it must return 401", () => {
+        await supertest(app)
+            .post("/participants").send({ name: secondUser })
 
+        await supertest(app)
+            .post("/messages")
+            .set('User', firstUser)
+            .send({ ...message, to: secondUser });
+
+        const database = await db;
+        const createdMessage = await database.collection("messages").findOne({ to: secondUser });
+
+        const result = await supertest(app)
+            .delete(`/messages/${createdMessage._id.toString()}`)
+            .set('User', secondUser)
+
+        const status = result.status;
+
+        expect(status).toEqual(401);
     });
 });
 
 describe("PUT /messages/:id", () => {
     it("Given a valid message it must return 201", () => {
-
+        
     });
 
     it("Given an invalid message it must return 410", () => {
@@ -181,7 +230,7 @@ describe("PUT /messages/:id", () => {
     });
 });
 
-describe("", () => {
+describe("STATUS", () => {
     it("Given a valid message, id and new message it must return 201", () => {
 
     });
