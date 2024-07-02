@@ -231,7 +231,7 @@ describe("PUT /messages/:id", () => {
         const result = await supertest(app)
             .put(`/messages/${createdMessage._id.toString()}`)
             .set('User', user)
-            .send({...message, text: faker.address.cityName()})
+            .send({ ...message, text: faker.address.cityName() })
 
 
         const status = result.status;
@@ -241,7 +241,7 @@ describe("PUT /messages/:id", () => {
     });
 
     it("Given an invalid message it must return 410", async () => {
-        const message = {...factories.fakeMessage, type: "super-message"};
+        const message = { ...factories.fakeMessage, type: "super-message" };
         const user = factories.fakeParticipant;
 
         await supertest(app)
@@ -258,7 +258,7 @@ describe("PUT /messages/:id", () => {
         const result = await supertest(app)
             .put(`/messages/${createdMessage._id.toString()}`)
             .set('User', user)
-            .send({...message, text: faker.address.cityName()})
+            .send({ ...message, text: faker.address.cityName() })
 
 
         const status = result.status;
@@ -267,8 +267,22 @@ describe("PUT /messages/:id", () => {
         expect(createdMessage.type).toBe("status");
     });
 
-    it("Given an nonexistent message it must return 404", () => {
-        
+    it("Given an nonexistent message it must return 404", async () => {
+        const message = factories.fakeMessage;
+        const user = factories.fakeParticipant;
+
+        await supertest(app)
+            .post("/participants").send({ name: user })
+
+        const result = await supertest(app)
+            .put(`/messages/1233334565554434`)
+            .set('User', user)
+            .send({ ...message, text: faker.address.cityName() })
+
+
+        const status = result.status;
+
+        expect(status).toEqual(404);
     });
 
     it("Given a user that is not owner from the message it must return 401", () => {
