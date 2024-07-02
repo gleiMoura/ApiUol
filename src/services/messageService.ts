@@ -18,6 +18,7 @@ async function gatherDatas(data: messageType, user: userType) {
             }
         }
     }
+
     const completeMessage = {
         ...data,
         from: user,
@@ -29,6 +30,18 @@ async function gatherDatas(data: messageType, user: userType) {
 };
 
 async function getMessages(limit: limitType, user: userType) {
+    const participant = await participantRepository.findParticipant(user);
+
+    if (!participant) {
+        throw {
+            response: {
+                status: 409,
+                message: "Usuário não cadastrado no banco de dados!"
+
+            }
+        }
+    }
+
     const allMessages = await messageRepository.findMessages(user);
 
     const limitNumber = parseInt(limit)
@@ -42,7 +55,7 @@ async function getMessages(limit: limitType, user: userType) {
 async function deleteMessage(id: any, user: userType) {
     const existMessage: any = await messagesRepository.findMessageById(id);
 
-    if (!existMessage) {
+    if (existMessage.error) {
         throw {
             response: {
                 status: 404,
@@ -52,7 +65,7 @@ async function deleteMessage(id: any, user: userType) {
         }
     }
 
-    if (existMessage.from !== user) {
+    if (!existMessage.error && existMessage.from !== user) {
         throw {
             response: {
                 status: 401,
