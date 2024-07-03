@@ -307,7 +307,7 @@ describe("PUT /messages/:id", () => {
         const result = await supertest(app)
             .put(`/messages/${createdMessage._id.toString()}`)
             .set('User', secondUser)
-            .send({...message, text: faker.address.cityName()})
+            .send({ ...message, text: faker.address.cityName() })
 
         const status = result.status;
 
@@ -321,7 +321,7 @@ describe("POST /status", () => {
 
         await supertest(app)
             .post("/participants")
-            .send({name: user})
+            .send({ name: user })
 
         const result = await supertest(app)
             .post("/status")
@@ -333,7 +333,15 @@ describe("POST /status", () => {
     });
 
     it("Given a invalid user it must return 404", async () => {
-    
+        const user = factories.fakeParticipant;
+
+        const result = await supertest(app)
+            .post("/status")
+            .set("User", user)
+
+        const status = result.status;
+
+        expect(status).toEqual(404);
     });
 
 });
