@@ -315,20 +315,25 @@ describe("PUT /messages/:id", () => {
     });
 });
 
-describe("STATUS", () => {
-    it("Given a valid message, id and new message it must return 201", () => {
+describe("POST /status", () => {
+    it("Given a valid user it must return 200", async () => {
+        const user = factories.fakeParticipant;
 
+        await supertest(app)
+            .post("/participants")
+            .send({name: user})
+
+        const result = await supertest(app)
+            .post("/status")
+            .set("User", user)
+
+        const status = result.status;
+
+        expect(status).toEqual(200);
     });
 
-    it("Given a nonexitent message it must return 404", () => {
-
+    it("Given a invalid user it must return 404", async () => {
+    
     });
 
-    it("Given a nonexitent user name it must return 422", () => {
-
-    });
-
-    it("Given a user that is not owner from the message it must return 401", () => {
-
-    });
 });
