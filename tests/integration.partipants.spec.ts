@@ -8,14 +8,44 @@ describe("POST participants", () => {
 
         const result = await supertest(app)
             .post("/participants")
-            .send({name: user})
+            .send({ name: user })
 
         const status = result.status;
 
         expect(status).toEqual(201);
     });
 
-    it("", async () => {
+    it("Given a invalid user name must return 410", async () => {
+        const user = factories.fakeParticipant + "^";
+
+        const result = await supertest(app)
+            .post("/participants")
+            .send({ name: user })
+
+        const status = result.status;
+
+        expect(status).toEqual(410);
+    });
+
+    it("Given a user name that already exist must return 409", async () => {
+        const user = factories.fakeParticipant;
+
+        await supertest(app)
+            .post("/participants")
+            .send({ name: user })
+
+        const result = await supertest(app)
+            .post("/participants")
+            .send({ name: user })
+
+        const status = result.status;
+
+        expect(status).toEqual(409);
+    });
+});
+
+describe("GET /participants", () => {
+    it("", () => {
 
     });
 })
