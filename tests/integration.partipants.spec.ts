@@ -45,7 +45,11 @@ describe("POST participants", () => {
 });
 
 describe("GET /participants", () => {
-    it("", () => {
+    it("Asking for all participants must return 201", async () => {
+        const result = await supertest(app)
+            .get("/participants");
 
+        const status = result.status;
+        expect(status).toEqual(201)
     });
 })
