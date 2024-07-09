@@ -5,7 +5,10 @@ import participantService from "../src/services/participantService";
 import messageService from "../src/services/messageService";
 import {
     messageType,
+    userType,
 } from "../src/interfaces/index"
+import { WithId } from "mongodb";
+import { stringify } from "querystring";
 
 //Partipant unit tests
 describe("Unit Participant Service tests", () => {
@@ -84,8 +87,14 @@ describe("Unit Messages Service tests", () => {
     });
 
     it("it should get all messages from a user", async () => {
-        const user = factories.fakeParticipant;
+        const user: any = factories.fakeParticipant;
         const allMessages: any = factories.allFakeMessages(user);
+
+        jest.spyOn(participantRepository, "findParticipant")
+            .mockImplementationOnce(async () => user);
+
+        jest.spyOn(messagesRepository, "createMessage")
+            .mockImplementationOnce((): any => { });
 
         jest.spyOn(messagesRepository, "findMessages")
             .mockImplementationOnce(async () => allMessages)
@@ -96,8 +105,14 @@ describe("Unit Messages Service tests", () => {
     });
 
     it("it shoult get a specific number of messages", async () => {
-        const user = factories.fakeParticipant;
+        const user: any = factories.fakeParticipant;
         const allMessages: any = factories.allFakeMessages(user);
+
+        jest.spyOn(participantRepository, "findParticipant")
+            .mockImplementationOnce(async () => user);
+
+        jest.spyOn(messagesRepository, "createMessage")
+            .mockImplementationOnce((): any => { });
 
         jest.spyOn(messagesRepository, "findMessages")
             .mockImplementationOnce(async () => allMessages)
