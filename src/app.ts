@@ -10,7 +10,7 @@ const repeatedFunction = participantService.removeParticipant;
 const app = express();
 
 app.use(cors({
-    origin: "https://apiuol.onrender.com"
+    origin: "https://frontuol.onrender.com"
 }));
 app.use(json());
 app.use(router);
